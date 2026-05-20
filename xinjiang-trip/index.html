@@ -2110,6 +2110,43 @@ section.chapter {
   .topo::before { left: 18px !important; font-size: 0.55rem !important; letter-spacing: 0.24em !important; padding: 0 10px !important; }
   .topo-canvas-wrap { height: 260px !important; padding: 10px !important; background-size: 18px 18px !important; }
   .topo-caption { font-size: 0.92rem !important; margin-top: 14px !important; padding-top: 10px !important; }
+
+  /* ───── Numerical Precis (statplates) 移动端修复 ─────
+     原 4 列 grid 在窄屏每格不足 90px, 字号 2.4rem 起 → "2,110" 溢出被 overflow:hidden 裁掉 */
+  .statplates {
+    grid-template-columns: repeat(2, 1fr) !important;
+    margin-top: 44px !important;
+  }
+  .statplates::before {
+    left: 16px !important;
+    font-size: 0.56rem !important;
+    letter-spacing: 0.24em !important;
+    padding: 0 10px !important;
+  }
+  .statplate {
+    padding: 24px 10px 18px !important;
+    /* 第 1/2 个底部多出一条分隔线 */
+  }
+  .statplate:nth-child(1), .statplate:nth-child(2) {
+    border-bottom: 1px solid var(--line);
+  }
+  .statplate:nth-child(2) { border-right: 0 !important; }
+  .statplate:nth-child(4) { border-right: 0 !important; }
+  /* 最关键: 数字字号收紧 + 允许 wrap, 防 "2,110km" 溢出裁切 */
+  .statplate-num {
+    font-size: clamp(1.7rem, 8vw, 2.2rem) !important;
+    letter-spacing: 0.02em !important;
+    white-space: nowrap !important;
+    /* tabular-nums 让数字宽度一致 */
+    font-variant-numeric: tabular-nums;
+  }
+  .statplate-num em {
+    font-size: 0.32em !important;
+    margin-left: 3px !important;
+    vertical-align: super;
+  }
+  .statplate-label { font-size: 0.6rem !important; letter-spacing: 0.2em !important; margin-top: 8px !important; }
+  .statplate-cn { font-size: 0.92rem !important; letter-spacing: 0.28em !important; margin-top: 4px !important; }
   /* ───────────────────────────────────────────────────────
      移动端 Journey 重设计 (v3 — 微信 webview 兼容):
      放弃 sticky (微信 iOS WKWebView + nested grid sticky 实测失效).
