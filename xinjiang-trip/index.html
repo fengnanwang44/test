@@ -2104,9 +2104,31 @@ section.chapter {
   .container { padding: 0 18px; }
   /* 左右 rail 在小屏隐藏(已在原 css 处理,这里再保险) */
   .rail-left, .rail-right { display: none !important; }
-  /* sticky 地图在移动端改为不 sticky,避免遮挡卡片 */
-  .journey-map-pin { position: relative !important; top: 0 !important; height: 50vh !important; }
-  .journey-map-frame { height: calc(50vh - 24px) !important; }
+  /* 移动端: 地图保持 sticky 在顶部(让位 masthead 56px), 骆驼随卡片滚动持续可见
+     高度压缩到 42vh, 留 58vh 给下方滚动的卡片同屏可见 */
+  .journey-map-pin {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 56px !important;
+    height: 42vh !important;
+    padding: 8px !important;
+    z-index: 40;
+    /* 隔离布局, 避免 iOS Safari 嵌套 grid + sticky 的渲染抖动 */
+    will-change: transform;
+    contain: layout paint;
+    /* 半透明背景纸色, 卡片向上滚时保持地图视觉连续 */
+    background: linear-gradient(180deg, var(--paper) 0%, var(--paper) 88%, rgba(241,230,204,0.6) 100%);
+  }
+  .journey-map-frame { height: calc(42vh - 16px) !important; padding: 6px !important; }
+  /* 缩小 HUD 计数器以适配窄屏 */
+  .journey-counter { top: 12px !important; left: 12px !important; padding: 8px 10px !important; min-width: 0 !important; font-size: 0.55rem !important; }
+  .jc-day { font-size: 1.15rem !important; }
+  /* 卡片顶部留白让首张卡片不被 sticky 地图遮挡 */
+  .journey-cards { padding: 32px 18px !important; gap: 36px !important; }
+  /* 缩小骆驼+图章, 在小地图上不喧宾夺主 */
+  .camel-marker { width: 42px !important; height: 42px !important; }
+  .camel-marker .camel-body { font-size: 30px !important; }
+  .day-seal { transform: scale(0.78); }
   /* 地图 attribution 在小屏不要太抢眼 */
   .leaflet-control-attribution { font-size: 9px !important; opacity: 0.6; }
   /* hero 字号约束(避免 11vw 在大屏外延展过宽) */
@@ -3026,11 +3048,20 @@ function updateCamelByProgress(progressFloat) {
   });
 
   if (journeyMap._loaded) {
-    const pt = journeyMap.latLngToContainerPoint(pos);
     const size = journeyMap.getSize();
-    const m = 80;
-    if (pt.x < m || pt.x > size.x - m || pt.y < m || pt.y > size.y - m) {
-      journeyMap.panTo(pos, { animate: true, duration: 0.6 });
+    // 地图容器不可见(0×0)时跳过, 否则 latLngToContainerPoint 会给出 NaN
+    if (size.x > 0 && size.y > 0) {
+      const isMobile = window.matchMedia('(max-width: 720px)').matches;
+      if (isMobile) {
+        // 小屏:骆驼始终保持在地图中央, 配合 sticky 地图给出"持续移动"的视觉
+        journeyMap.panTo(pos, { animate: true, duration: 0.5, easeLinearity: 0.4 });
+      } else {
+        const pt = journeyMap.latLngToContainerPoint(pos);
+        const m = 80;
+        if (pt.x < m || pt.x > size.x - m || pt.y < m || pt.y > size.y - m) {
+          journeyMap.panTo(pos, { animate: true, duration: 0.6 });
+        }
+      }
     }
   }
 
@@ -3090,7 +3121,14 @@ function onJourneyScroll() {
 buildAllRoutes().then(() => {
   onJourneyScroll();
   window.addEventListener('scroll', onJourneyScroll, { passive: true });
-  window.addEventListener('resize', onJourneyScroll);
+  window.addEventListener('resize', () => {
+    // 移动端横竖屏切换 / 微信顶栏收起会改变 sticky 容器高度,
+    // Leaflet 需要重算尺寸否则瓦片错位、骆驼定位偏
+    journeyMap.invalidateSize();
+    onJourneyScroll();
+  });
+  // iOS Safari sticky + 嵌套 grid 在首次 paint 后偶尔尺寸为 0, 延迟再算一次
+  setTimeout(() => { journeyMap.invalidateSize(); onJourneyScroll(); }, 300);
 });
 
 /* ════════════════════════════════════════════════════════
