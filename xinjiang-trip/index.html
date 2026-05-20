@@ -33,7 +33,7 @@
 // 主 CDN 没加载到全局变量时,同步插入 jsDelivr fallback
 (function(){
   function inject(src){
-    document.write('<script src="'+src+'" defer></script>');
+    document.write('<script src="'+src+'" defer><\/script>');
   }
   if (typeof L === 'undefined') {
     inject('https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js');
