@@ -2100,10 +2100,16 @@ section.chapter {
    微信 / 移动端专属优化层 — 覆盖前面 media query 的边角
    ════════════════════════════════════════════════════════ */
 @media (max-width: 720px) {
-  body { font-size: 16px; line-height: 1.7; }
-  .container { padding: 0 18px; }
+  body { font-size: 15.5px; line-height: 1.65; }
+  .container { padding: 0 12px; }
   /* 左右 rail 在小屏隐藏(已在原 css 处理,这里再保险) */
   .rail-left, .rail-right { display: none !important; }
+  /* ───── 海拔图 (Topographic Profile) 移动端修复 ─────
+     原 height:400px 在窄屏被压扁成竖矩形导致变形 */
+  .topo { padding: 28px 14px 18px !important; }
+  .topo::before { left: 18px !important; font-size: 0.55rem !important; letter-spacing: 0.24em !important; padding: 0 10px !important; }
+  .topo-canvas-wrap { height: 260px !important; padding: 10px !important; background-size: 18px 18px !important; }
+  .topo-caption { font-size: 0.92rem !important; margin-top: 14px !important; padding-top: 10px !important; }
   /* ───────────────────────────────────────────────────────
      移动端 Journey 重设计 (v3 — 微信 webview 兼容):
      放弃 sticky (微信 iOS WKWebView + nested grid sticky 实测失效).
@@ -2113,7 +2119,7 @@ section.chapter {
      这样地图永远在视野里, 同时不污染其他 section.
      ─────────────────────────────────────────────────────── */
   .journey {
-    margin: 30px -18px 60px -18px !important;
+    margin: 30px -12px 60px -12px !important;
     /* 重置桌面端的 overflow: 不要 hidden, 不挡 fixed */
   }
   .journey-grid {
@@ -3033,7 +3039,15 @@ async function buildAllRoutes() {
   }
   document.getElementById('journeyLoading').classList.add('done');
   if (fullRouteCoords.length) {
-    journeyMap.fitBounds(L.latLngBounds(fullRouteCoords), { padding: [50, 50] });
+    const isMobile = window.matchMedia('(max-width: 720px)').matches;
+    if (isMobile) {
+      // 移动端: 初始只看第一段附近, 让用户进入 journey 时已经能看清骆驼
+      const initPts = [itinerary[0].coord, itinerary[1].coord];
+      if (segmentCoords[0]) initPts.push(...segmentCoords[0]);
+      journeyMap.fitBounds(L.latLngBounds(initPts), { padding: [50, 30], maxZoom: 9 });
+    } else {
+      journeyMap.fitBounds(L.latLngBounds(fullRouteCoords), { padding: [50, 50] });
+    }
   }
 }
 
@@ -3067,6 +3081,7 @@ function pointAlongPath(path, t) {
 }
 
 let lastCamelLatLng = null;
+let lastFitKey = '';  // 节流 flyToBounds: 只在 day 切换或段进度跨过 0/0.5 时重 fit
 function updateCamelByProgress(progressFloat) {
   const dayIdx = Math.floor(progressFloat);
   const segT = progressFloat - dayIdx;
@@ -3129,8 +3144,34 @@ function updateCamelByProgress(progressFloat) {
     if (size.x > 0 && size.y > 0) {
       const isMobile = window.matchMedia('(max-width: 720px)').matches;
       if (isMobile) {
-        // 小屏:骆驼始终保持在地图中央, 配合 sticky 地图给出"持续移动"的视觉
-        journeyMap.panTo(pos, { animate: true, duration: 0.5, easeLinearity: 0.4 });
+        /* 移动端 zoom 跟随策略:
+           取当前段路线 + 上下驿站, 计算 bounds, fitBounds 让用户能看清:
+             - 骆驼当前在哪
+             - 来时路 / 去向
+           节流: 只在 dayIdx 变化或段中点跨越时重新 fit, 否则 panTo 跟手 */
+        const fitKey = `${dayIdx}:${segT > 0.5 ? 'B' : 'A'}`;
+        if (fitKey !== lastFitKey) {
+          lastFitKey = fitKey;
+          const focusPts = [pos];
+          if (dayIdx > 0)                                  focusPts.push(itinerary[dayIdx - 1].coord);
+          if (dayIdx < itinerary.length - 1)               focusPts.push(itinerary[dayIdx + 1].coord);
+          if (dayIdx < itinerary.length - 2 && segT > 0.5) focusPts.push(itinerary[dayIdx + 2].coord);
+          if (segmentCoords[dayIdx] && segmentCoords[dayIdx].length > 2) {
+            const seg = segmentCoords[dayIdx];
+            focusPts.push(seg[Math.floor(seg.length * 0.25)]);
+            focusPts.push(seg[Math.floor(seg.length * 0.75)]);
+          }
+          const bounds = L.latLngBounds(focusPts);
+          journeyMap.flyToBounds(bounds, {
+            padding: [60, 30],   // 顶部多留点给 HUD
+            maxZoom: 9,
+            duration: 0.9,
+            easeLinearity: 0.35,
+          });
+        } else {
+          // 非边界时段间, 平移让骆驼跟手
+          journeyMap.panTo(pos, { animate: true, duration: 0.4, easeLinearity: 0.4, noMoveStart: true });
+        }
       } else {
         const pt = journeyMap.latLngToContainerPoint(pos);
         const m = 80;
@@ -3339,7 +3380,14 @@ new Chart(ctx, {
     },
     scales: {
       x: {
-        ticks: { color: '#6b5a44', font: { family: 'DM Mono', size: 10 }, maxRotation: 45 },
+        ticks: {
+          color: '#6b5a44',
+          font: { family: 'DM Mono', size: 10 },
+          maxRotation: 60,
+          autoSkip: false,
+          // 移动端再缩字号防 12 个 day 标签互压
+          callback: function(val, i) { return this.getLabelForValue(val); }
+        },
         grid:   { color: 'rgba(139,115,85,0.15)' },
         border: { color: '#181210' },
       },
