@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>洛阳 · 嵩山 | 6天5晚优化版攻略 V2（2026.9.17–9.22）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f0e2;
+  --paper-deep:#efe6d1;
+  --ink:#2b2620;
+  --ink-soft:#5c5348;
+  --cinnabar:#b23a2b;
+  --cinnabar-deep:#8f2b1f;
+  --gold:#a8853c;
+  --gold-soft:#c9ad6e;
+  --jade:#3e6b5a;
+  --card:#fbf7ec;
+  --line:#d8c9a8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Noto Sans SC',sans-serif;
+  font-weight:400;
+  line-height:1.75;
+  overflow-x:hidden;
+  position:relative;
+}
+/* 纸纹噪点 */
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:999;
+}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;
+  padding:88px 0 64px;
+  border-bottom:3px double var(--gold-soft);
+  overflow:hidden;
+}
+.hero::after{
+  content:"神都洛陽";
+  position:absolute;right:2%;top:40px;
+  writing-mode:vertical-rl;
+  font-family:'ZCOOL XiaoWei',serif;
+  font-size:clamp(60px,9vw,110px);
+  color:rgba(178,58,43,.08);
+  letter-spacing:.25em;
+  pointer-events:none;
+}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:13px;letter-spacing:.35em;color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:20px;
+}
+.hero-kicker::before,.hero-kicker::after{
+  content:"";width:36px;height:1px;background:var(--gold-soft);
+}
+h1{
+  font-family:'ZCOOL XiaoWei',serif;
+  font-size:clamp(40px,7vw,72px);
+  line-height:1.15;
+  font-weight:400;
+  letter-spacing:.04em;
+}
+h1 .accent{color:var(--cinnabar);}
+.hero-sub{
+  margin-top:18px;
+  font-family:'Noto Serif SC',serif;
+  font-size:17px;color:var(--ink-soft);
+  max-width:560px;
+}
+.seal{
+  position:absolute;right:24px;bottom:56px;
+  width:92px;height:92px;
+  border:3px solid var(--cinnabar);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  transform:rotate(8deg);
+  font-family:'ZCOOL XiaoWei',serif;
+  color:var(--cinnabar);
+  font-size:20px;line-height:1.3;text-align:center;
+  letter-spacing:.1em;
+  box-shadow:inset 0 0 0 2px rgba(178,58,43,.25);
+  background:rgba(178,58,43,.04);
+  animation:stamp .5s ease .8s both;
+}
+@keyframes stamp{
+  0%{opacity:0;transform:rotate(8deg) scale(1.6);}
+  70%{opacity:1;transform:rotate(8deg) scale(.94);}
+  100%{opacity:1;transform:rotate(8deg) scale(1);}
+}
+.stats{
+  display:flex;flex-wrap:wrap;gap:12px;margin-top:36px;
+}
+.chip{
+  padding:8px 18px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--card);
+  font-size:14px;color:var(--ink-soft);
+  display:flex;align-items:center;gap:8px;
+}
+.chip b{color:var(--cinnabar);font-weight:700;}
+
+/* ============ 优化总览 ============ */
+section{padding:64px 0 8px;}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:34px;}
+.sec-num{
+  font-family:'ZCOOL XiaoWei',serif;
+  font-size:15px;color:var(--gold);letter-spacing:.3em;
+  white-space:nowrap;
+}
+h2{
+  font-family:'ZCOOL XiaoWei',serif;
+  font-size:clamp(26px,4vw,36px);
+  font-weight:400;letter-spacing:.06em;
+}
+h2 em{font-style:normal;color:var(--cinnabar);}
+.sec-head::after{content:"";flex:1;height:1px;background:var(--line);}
+
+.req-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:16px;
+}
+.req{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:22px 22px 20px;
+  position:relative;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.req:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(43,38,32,.10);}
+.req-tag{
+  display:inline-block;
+  font-size:12px;letter-spacing:.15em;
+  color:var(--paper);background:var(--cinnabar);
+  padding:3px 12px;border-radius:999px;margin-bottom:12px;
+}
+.req h3{
+  font-family:'Noto Serif SC',serif;
+  font-size:17px;font-weight:700;margin-bottom:8px;
+}
+.req p{font-size:13.5px;color:var(--ink-soft);}
+.req .check{
+  position:absolute;top:18px;right:18px;
+  color:var(--jade);font-weight:700;font-size:18px;
+}
+
+.bugbox{
+  margin-top:20px;
+  border:1.5px dashed var(--cinnabar);
+  border-radius:14px;
+  background:rgba(178,58,43,.045);
+  padding:22px 26px;
+}
+.bugbox h3{
+  font-family:'Noto Serif SC',serif;
+  color:var(--cinnabar-deep);font-size:16px;margin-bottom:10px;
+}
+.bugbox li{
+  margin-left:1.2em;font-size:14px;color:var(--ink-soft);margin-bottom:6px;
+}
+.bugbox b{color:var(--ink);}
+
+/* ============ 时间轴 ============ */
+.day{
+  position:relative;
+  margin-bottom:44px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 4px 16px rgba(43,38,32,.05);
+}
+.day-head{
+  display:flex;align-items:center;gap:20px;
+  padding:24px 30px 20px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(135deg,var(--paper-deep) 0%,var(--card) 65%);
+  position:relative;
+}
+.day-num{
+  font-family:'ZCOOL XiaoWei',serif;
+  font-size:54px;line-height:1;
+  color:transparent;
+  -webkit-text-stroke:1.5px var(--cinnabar);
+  min-width:64px;text-align:center;
+}
+.day-title h3{
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(19px,3vw,24px);font-weight:900;letter-spacing:.03em;
+}
+.day-title .date{
+  font-size:13px;color:var(--gold);letter-spacing:.12em;margin-top:2px;
+}
+.day-badge{
+  margin-left:auto;
+  font-size:12px;letter-spacing:.1em;
+  padding:5px 14px;border-radius:999px;
+  border:1px solid var(--gold-soft);
+  color:var(--gold);white-space:nowrap;
+}
+.day-badge.hike{border-color:var(--cinnabar);color:var(--cinnabar);background:rgba(178,58,43,.06);}
+.day-badge.chill{border-color:var(--jade);color:var(--jade);background:rgba(62,107,90,.06);}
+
+.tl{padding:10px 30px 8px;}
+.row{
+  display:grid;
+  grid-template-columns:92px 1fr;
+  gap:18px;
+  position:relative;
+  padding:13px 0;
+}
+.row:not(:last-child)::before{
+  content:"";
+  position:absolute;left:110px;top:34px;bottom:-13px;
+  width:1px;background:var(--line);
+}
+.row::after{
+  content:"";
+  position:absolute;left:106.5px;top:26px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--paper);
+  border:2px solid var(--gold);
+}
+.row.hl::after{background:var(--cinnabar);border-color:var(--cinnabar);}
+.t{
+  font-family:'Noto Serif SC',serif;
+  font-size:14px;font-weight:700;color:var(--ink-soft);
+  text-align:right;padding-top:2px;letter-spacing:.02em;
+  white-space:nowrap;
+}
+.a{padding-left:24px;}
+.a .what{font-size:15.5px;font-weight:500;}
+.row.hl .what{font-weight:700;color:var(--cinnabar-deep);}
+.a .meta{
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:5px;
+}
+.pill{
+  font-size:11.5px;
+  padding:2px 10px;border-radius:999px;
+  letter-spacing:.03em;
+}
+.pill.fare{background:rgba(168,133,60,.13);color:#8a6d2f;}
+.pill.food{background:rgba(178,58,43,.10);color:var(--cinnabar-deep);}
+.pill.go{background:rgba(62,107,90,.12);color:var(--jade);}
+.pill.book{background:rgba(43,38,32,.08);color:var(--ink-soft);border:1px dashed var(--line);}
+.pill.warn{background:rgba(178,58,43,.14);color:var(--cinnabar-deep);font-weight:700;}
+
+.tip{
+  margin:14px 30px 26px;
+  background:linear-gradient(0deg,rgba(168,133,60,.07),rgba(168,133,60,.07));
+  border-left:3px solid var(--gold);
+  border-radius:0 12px 12px 0;
+  padding:14px 20px;
+  font-size:13.5px;color:var(--ink-soft);
+}
+.tip b{color:var(--gold);font-family:'Noto Serif SC',serif;}
+.tip.alert{border-left-color:var(--cinnabar);background:rgba(178,58,43,.05);}
+.tip.alert b{color:var(--cinnabar-deep);}
+
+/* ============ 备选 & 清单 ============ */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.panel{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:16px;padding:26px 28px;
+}
+.panel h3{
+  font-family:'Noto Serif SC',serif;font-size:18px;font-weight:900;
+  margin-bottom:14px;display:flex;align-items:center;gap:10px;
+}
+.panel h3::before{content:"◆";color:var(--cinnabar);font-size:12px;}
+.panel li{
+  list-style:none;font-size:14px;color:var(--ink-soft);
+  padding:7px 0 7px 24px;position:relative;
+  border-bottom:1px dashed rgba(216,201,168,.6);
+}
+.panel li:last-child{border-bottom:none;}
+.panel li::before{
+  content:"";position:absolute;left:4px;top:15px;
+  width:7px;height:7px;border:1.5px solid var(--gold);border-radius:2px;
+  transform:rotate(45deg);
+}
+.panel li b{color:var(--ink);}
+
+/* ============ footer ============ */
+footer{
+  margin-top:72px;padding:40px 0 48px;
+  border-top:3px double var(--gold-soft);
+  text-align:center;
+  font-size:13px;color:var(--ink-soft);
+}
+footer .brand{
+  font-family:'ZCOOL XiaoWei',serif;
+  font-size:22px;color:var(--cinnabar);letter-spacing:.3em;
+  margin-bottom:8px;
+}
+
+/* 入场动画 */
+.day,.req,.panel,.bugbox{animation:rise .6s ease both;}
+.day:nth-of-type(2){animation-delay:.05s}
+.day:nth-of-type(3){animation-delay:.1s}
+@keyframes rise{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+
+@media(max-width:600px){
+  .row{grid-template-columns:64px 1fr;}
+  .row:not(:last-child)::before{left:82px;}
+  .row::after{left:78.5px;}
+  .t{font-size:12.5px;}
+  .tl{padding:10px 18px 8px;}
+  .day-head{padding:20px 18px 16px;}
+  .tip{margin:12px 18px 22px;}
+  .seal{width:74px;height:74px;font-size:16px;bottom:30px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-kicker">2026.09.17 — 09.22 · 新加坡出发 · V2 加料版</div>
+    <h1>洛阳<span class="accent">·</span>嵩山<br>6天5晚 <span class="accent">优化版</span>攻略</h1>
+    <p class="hero-sub">嵩山双腿硬爬上山、索道潇洒下山；万安山云端草甸加餐；离境前夜用「只有河南」的麦田剧场收尾——让远道而来的客人记住中原，而不只是记住景点。</p>
+    <div class="stats">
+      <div class="chip">🏔️ 爬山 <b>×2</b>（三皇寨硬核 + 龙潭大峡谷穿峡）</div>
+      <div class="chip">🎭 戏剧幻城 <b>×1</b>（只有河南）</div>
+      <div class="chip">✈️ 到达/出发时间 <b>不变</b></div>
+      <div class="chip">🏨 洛阳 <b>4 晚连住</b> + 机场 1 晚</div>
+    </div>
+  </div>
+  <div class="seal">博主<br>亲测</div>
+</header>
+
+<div class="wrap">
+
+<!-- ================= 优化总览 ================= -->
+<section>
+  <div class="sec-head"><span class="sec-num">壹 · 优化清单</span><h2>这一版，<em>改了什么</em></h2></div>
+  <div class="req-grid">
+    <div class="req">
+      <span class="check">✔</span>
+      <span class="req-tag">升级 1</span>
+      <h3>9/18 徒步上山，索道下山</h3>
+      <p>不坐缆车上山完全可行：塔林旁登山道经好汉坡上三皇寨，约 2.5–3 小时登顶。代价是全天提前 30 分钟发车、寺院环节收紧。<b>索道末班约 17:00</b>（旺季或延后，进山时以当日公告为准），16:30 前必须到索道站。</p>
+    </div>
+    <div class="req">
+      <span class="check">✔</span>
+      <span class="req-tag">升级 2</span>
+      <h3>9/20 上午：龙潭大峡谷穿峡</h3>
+      <p>新安县，黄河黛眉山<b>世界地质公园</b>，号称「中国嶂谷第一峡」——12亿年紫红色石英砂岩被水切出的一线天、波纹石、瓮谷、水帘瀑布。谷底沿溪栈道平缓，3 小时穿峡有登山的野趣没有登山的累。车程约 1.5 小时，只有白云山的一半。<b>爬山 ×2 达成</b>。</p>
+    </div>
+    <div class="req">
+      <span class="check">✔</span>
+      <span class="req-tag">升级 3</span>
+      <h3>9/21 压轴：只有河南·戏剧幻城</h3>
+      <p>王潮歌导演的 328 米夯土墙 + 百亩麦田里 21 个剧场，中国最震撼的沉浸式戏剧聚落，就在郑州方向、距新郑机场约 1 小时——看完戏直接睡机场旁，返程零风险。<b>给外宾的终极名场面</b>。</p>
+    </div>
+    <div class="req">
+      <span class="check">✔</span>
+      <span class="req-tag">不变</span>
+      <h3>两头时间原封不动</h3>
+      <p>9/17 早 7:30 落地郑州、9/22 早 8:20 起飞返新。所有加料都塞在中间，两头分毫未动。</p>
+    </div>
+  </div>
+
+  <div class="bugbox">
+    <h3>⚠ 原表的三个坑（继续保持修复）</h3>
+    <ul>
+      <li><b>日期写反了</b>：原表第4天标 9/21（周一）、第5天标 9/20（周日）。已按真实日历修正为 Day4 = 9/20 周日、Day5 = 9/21 周一。</li>
+      <li><b>周一闭馆</b>：洛阳博物馆逢周一闭馆。已挪到 Day1（周四），稳。</li>
+      <li><b>返程掐点太险</b>：原计划 9/22 早 5:30 才从洛阳出发赶 8:20 国际航班，来不及。现在前一晚已睡在机场旁，同样 5:30 起床，走路到航站楼。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 行程 ================= -->
+<section>
+  <div class="sec-head"><span class="sec-num">贰 · 每日行程</span><h2>六天，<em>一条不折返的线</em></h2></div>
+
+  <!-- DAY 1 -->
+  <article class="day">
+    <div class="day-head">
+      <div class="day-num">壹</div>
+      <div class="day-title">
+        <h3>落地即出发 · 古都软着陆</h3>
+        <div class="date">9月17日 · 周四</div>
+      </div>
+      <span class="day-badge chill">恢复日</span>
+    </div>
+    <div class="tl">
+      <div class="row"><div class="t">01:30</div><div class="a"><div class="what">新加坡起飞（夜间航班）</div></div></div>
+      <div class="row"><div class="t">07:30</div><div class="a"><div class="what">抵达郑州新郑国际机场</div><div class="meta"><span class="pill go">入境 · SIM卡 · 取现金</span></div></div></div>
+      <div class="row hl"><div class="t">09:00</div><div class="a"><div class="what">高铁直达洛阳龙门站</div><div class="meta"><span class="pill go">机场站上车 · 约50分钟</span><span class="pill fare">二等座约 ¥60</span></div></div></div>
+      <div class="row"><div class="t">10:30</div><div class="a"><div class="what">酒店寄存行李（推荐洛邑古城/西工区，一住到底）</div></div></div>
+      <div class="row"><div class="t">12:00</div><div class="a"><div class="what">午餐：洛阳水席</div><div class="meta"><span class="pill food">真不同 / 管记水席</span></div></div></div>
+      <div class="row hl"><div class="t">14:00–16:30</div><div class="a"><div class="what">洛阳博物馆 · 看镇馆之宝唐三彩</div><div class="meta"><span class="pill fare">免费</span><span class="pill book">需提前3天预约（出发前在新加坡就约好）</span></div></div></div>
+      <div class="row"><div class="t">17:30</div><div class="a"><div class="what">晚餐 + 洛邑古城夜景初探</div><div class="meta"><span class="pill fare">免费</span><span class="pill book">小程序预约</span></div></div></div>
+      <div class="row"><div class="t">21:00</div><div class="a"><div class="what">回酒店泡脚早睡——明天要用双腿丈量嵩山</div></div></div>
+    </div>
+    <div class="tip"><b>博主贴士 ·</b> 红眼航班落地日最忌暴走。博物馆吹着空调看国宝，就是最优雅的倒时差方式——而且它周一闭馆，只有放在今天（周四）最稳。</div>
+  </article>
+
+  <!-- DAY 2 -->
+  <article class="day">
+    <div class="day-head">
+      <div class="day-num">贰</div>
+      <div class="day-title">
+        <h3>嵩山 + 少林寺 · 双腿上山，索道下山</h3>
+        <div class="date">9月18日 · 周五</div>
+      </div>
+      <span class="day-badge hike">🏔️ 硬核爬山日</span>
+    </div>
+    <div class="tl">
+      <div class="row"><div class="t">07:00</div><div class="a"><div class="what">包车出发：洛阳 → 少林寺（比上一版提早30分钟，给爬山攒时间）</div><div class="meta"><span class="pill go">约70km · 1.5小时</span><span class="pill fare">包车往返约 ¥400–500</span></div></div></div>
+      <div class="row"><div class="t">08:30</div><div class="a"><div class="what">少林寺常住院：殿宇、碑廊（收紧到1小时，看精华）</div><div class="meta"><span class="pill fare">门票 ¥80（已含三皇寨）</span></div></div></div>
+      <div class="row"><div class="t">09:30</div><div class="a"><div class="what">武术馆功夫表演（外宾看了直呼 kungfu 的环节）</div><div class="meta"><span class="pill fare">免费定时场</span><span class="pill go">提前20分钟占座</span></div></div></div>
+      <div class="row"><div class="t">10:30</div><div class="a"><div class="what">塔林（顺路，就在登山道入口旁）</div></div></div>
+      <div class="row"><div class="t">11:00</div><div class="a"><div class="what">早午餐：素斋吃饱 + 补给水和干粮</div><div class="meta"><span class="pill food">素斋馆</span><span class="pill go">每人带足 1.5L 水</span></div></div></div>
+      <div class="row hl"><div class="t">11:45–14:30</div><div class="a"><div class="what">徒步上山：塔林旁登山道 → 好汉坡 → 三皇寨景区</div><div class="meta"><span class="pill go">爬升约700m · 台阶为主 · 2.5–3小时</span><span class="pill warn">量力而行，落后于14:45请就地折返</span></div></div></div>
+      <div class="row hl"><div class="t">14:30–16:15</div><div class="a"><div class="what">三皇寨栈道精华：书册崖 → 悬空栈道 → 连天吊桥</div><div class="meta"><span class="pill go">丹霞崖壁 · 全程横切不再爬升</span></div></div></div>
+      <div class="row hl"><div class="t">16:30</div><div class="a"><div class="what">⏰ 硬截止：抵达索道上站，索道下山</div><div class="meta"><span class="pill warn">末班约17:00 · 以当日公告为准 · 进山时先拍站牌</span><span class="pill fare">单程约 ¥70</span></div></div></div>
+      <div class="row"><div class="t">17:15</div><div class="a"><div class="what">山下与包车师傅会合，返程洛阳</div></div></div>
+      <div class="row"><div class="t">19:00</div><div class="a"><div class="what">回酒店，晚餐后泡脚 + 拉伸（明天还有安排，别硬撑）</div></div></div>
+    </div>
+    <div class="tip alert"><b>时间账（重要）·</b> 徒步上山可行，但账要算清：11:45 起步 + 3 小时登顶 = 14:45 是安全线；栈道横切 1.5 小时 + 16:30 到索道站，刚好赶上约 17:00 的末班索道。三个保命规则——①进山第一件事拍下索道末班时间公告；②14:45 还没到三皇寨牌坊就原路下撤；③如果早上寺院环节超时，果断切回"索道上山"方案，别赌。</div>
+  </article>
+
+  <!-- DAY 3 -->
+  <article class="day">
+    <div class="day-head">
+      <div class="day-num">叁</div>
+      <div class="day-title">
+        <h3>晨钟白马寺 · 夜点龙门灯</h3>
+        <div class="date">9月19日 · 周六</div>
+      </div>
+      <span class="day-badge">文化日 · 夜游龙门</span>
+    </div>
+    <div class="tl">
+      <div class="row"><div class="t">08:00</div><div class="a"><div class="what">早餐：一碗牛肉汤开局</div><div class="meta"><span class="pill food">洛阳人的早晨从喝汤开始</span></div></div></div>
+      <div class="row hl"><div class="t">08:30–11:30</div><div class="a"><div class="what">白马寺 · 中国佛教祖庭 + 中印缅泰四国佛殿群</div><div class="meta"><span class="pill fare">门票 ¥35</span><span class="pill go">清晨香火 + 诵经，比下午更有气韵</span></div></div></div>
+      <div class="row"><div class="t">12:00</div><div class="a"><div class="what">午餐后回酒店午休 —— 昨天爬了嵩山，下午光明正大躺平回血</div><div class="meta"><span class="pill go">养精蓄锐，夜里才是主场</span></div></div></div>
+      <div class="row"><div class="t">17:00</div><div class="a"><div class="what">晚餐（早点吃，吃完出发龙门）</div></div></div>
+      <div class="row hl"><div class="t">18:30–21:00</div><div class="a"><div class="what">夜游龙门石窟：暮色进场 → 卢舍那大佛点灯 → 伊河两岸灯影</div><div class="meta"><span class="pill fare">夜场票约 ¥90 · 与白天票不通用</span><span class="pill book">提前官方渠道购 9/19 夜场票</span><span class="pill warn">夜场开放以当季公告为准 · 出发前务必确认</span></div></div></div>
+      <div class="row"><div class="t">21:30</div><div class="a"><div class="what">回酒店</div></div></div>
+    </div>
+    <div class="tip"><b>博主贴士 ·</b> 这个调换是本攻略最值的一笔：周六白天的龙门是人贴人的"石窟早高峰"，夜场人少一个量级；卢舍那大佛白天看是文物，点灯之后是神明。上午的白马寺反而适合清晨去——香火初起、诵经声里逛祖庭，比下午的旅行团时段清净得多。中午还白赚一段午休，完美衔接昨天爬山后的疲劳曲线。若当季夜场未开放，则回退原方案：龙门排上午看顺光大佛，白马寺垫下午。</div>
+  </article>
+
+  <!-- DAY 4 -->
+  <article class="day">
+    <div class="day-head">
+      <div class="day-num">肆</div>
+      <div class="day-title">
+        <h3>龙潭大峡谷穿峡 + 汉服梦回大唐</h3>
+        <div class="date">9月20日 · 周日（日期已修正）</div>
+      </div>
+      <span class="day-badge hike">🏔️ 地质奇观 + 出片日</span>
+    </div>
+    <div class="tl">
+      <div class="row"><div class="t">07:30</div><div class="a"><div class="what">包车出发龙潭大峡谷（新安县，黄河黛眉山世界地质公园）</div><div class="meta"><span class="pill go">约70km · 车程1.5小时 · 包半天车约¥350</span></div></div></div>
+      <div class="row hl"><div class="t">09:00–12:00</div><div class="a"><div class="what">穿峡徒步：一线天 → 波纹石壁 → 瓮谷 → 水帘瀑布，原路或观光车返回</div><div class="meta"><span class="pill go">谷底沿溪栈道 · 平缓少台阶 · 强度只有三皇寨的一半</span><span class="pill fare">门票约 ¥75 · 以景区当日为准</span><span class="pill go">「中国嶂谷第一峡」· 12亿年红岩地质课</span></div></div></div>
+      <div class="row"><div class="t">12:00</div><div class="a"><div class="what">景区门口简餐后返程，车上补觉</div></div></div>
+      <div class="row hl"><div class="t">14:30</div><div class="a"><div class="what">汉服变装（外宾也安排上！妆造师会看着办）</div><div class="meta"><span class="pill fare">租赁 ¥50–100 含妆造</span></div></div></div>
+      <div class="row"><div class="t">15:30–17:30</div><div class="a"><div class="what">隋唐洛阳城 · 明堂天堂 + 九洲池，登顶俯瞰神都中轴线</div><div class="meta"><span class="pill go">「神都洛阳」名场面打卡</span></div></div></div>
+      <div class="row hl"><div class="t">18:00</div><div class="a"><div class="what">洛邑古城夜游 · 汉服夜景天花板</div><div class="meta"><span class="pill book">免费但需预约</span></div></div></div>
+      <div class="row"><div class="t">21:00</div><div class="a"><div class="what">十字街夜市宵夜</div><div class="meta"><span class="pill food">不翻汤 · 涮牛肚 · 牡丹酥</span></div></div></div>
+    </div>
+    <div class="tip"><b>博主贴士 ·</b> 上午在12亿年的红色岩缝里踩着溪水走一线天，下午襦裙画黛登明堂，晚上宫灯夜市——一天从「地质纪录片」切到「大唐画卷」，这才叫「不无聊」。峡谷精华全在前3公里且是平路，凉快、出片、老少皆宜，不会透支明天的戏剧幻城。想更硬核的看文末备选里的老君山方案。</div>
+  </article>
+
+  <!-- DAY 5 -->
+  <article class="day">
+    <div class="day-head">
+      <div class="day-num">伍</div>
+      <div class="day-title">
+        <h3>关林辞洛阳 · 麦田里的戏剧幻城压轴</h3>
+        <div class="date">9月21日 · 周一（日期已修正）</div>
+      </div>
+      <span class="day-badge hike">🎭 王炸收尾日</span>
+    </div>
+    <div class="tl">
+      <div class="row"><div class="t">08:30–10:00</div><div class="a"><div class="what">关林庙 · 关羽首级埋葬地，给武圣道个别</div><div class="meta"><span class="pill fare">门票 ¥40</span><span class="pill go">周一正常开放 ✓</span></div></div></div>
+      <div class="row"><div class="t">10:30</div><div class="a"><div class="what">丽景门老城：最后一碗汤 + 伴手礼</div><div class="meta"><span class="pill food">小街锅贴 · 牡丹酥 · 唐三彩摆件</span></div></div></div>
+      <div class="row"><div class="t">12:00</div><div class="a"><div class="what">回酒店取行李，退房</div></div></div>
+      <div class="row hl"><div class="t">13:00</div><div class="a"><div class="what">高铁：洛阳龙门 → 郑州东</div><div class="meta"><span class="pill go">约40分钟</span><span class="pill fare">二等座约 ¥90</span></div></div></div>
+      <div class="row"><div class="t">14:00</div><div class="a"><div class="what">郑州东站打车赴中牟 · 只有河南·戏剧幻城</div><div class="meta"><span class="pill go">约40分钟车程</span></div></div></div>
+      <div class="row hl"><div class="t">15:00–21:00</div><div class="a"><div class="what">只有河南·戏剧幻城：328米夯土墙内，百亩麦田 + 21个剧场</div><div class="meta"><span class="pill go">三大主剧场选2场：幻城剧场 / 李家村剧场 / 火车站剧场</span><span class="pill fare">主剧场单场约¥240起 · 以官方小程序实时票价为准</span><span class="pill book">场次售罄快，出发前就锁票</span></div></div></div>
+      <div class="row hl"><div class="t">21:00</div><div class="a"><div class="what">打车赴新郑机场酒店</div><div class="meta"><span class="pill go">约1小时车程 · 提前在打车软件预约好</span></div></div></div>
+      <div class="row"><div class="t">22:00</div><div class="a"><div class="what">入住机场酒店，线上值机，睡前把行李理好</div><div class="meta"><span class="pill go">步行/摆渡车可达航站楼</span></div></div></div>
+    </div>
+    <div class="tip alert"><b>给外宾的观演锦囊 ·</b> 「只有河南」讲的是1942年大饥荒与土地、粮食、传承的故事，演出为中文——提前把剧情梗概讲给客人听（英文资料网上有），现场的夯土墙、麦田、光影本身就是跨语言的震撼。李家村剧场结尾的那面"墙"，不需要翻译，所有人都会起鸡皮疙瘩。时间账：看 16:00 与 19:00 前后两场主剧场，中间在麦田和小剧场漫游，21:00 准时撤，22:00 到机场酒店，睡足 7 小时。</div>
+  </article>
+
+  <!-- DAY 6 -->
+  <article class="day">
+    <div class="day-head">
+      <div class="day-num">陆</div>
+      <div class="day-title">
+        <h3>返程 · 时间与原计划分毫不差</h3>
+        <div class="date">9月22日 · 周二</div>
+      </div>
+      <span class="day-badge">返程日</span>
+    </div>
+    <div class="tl">
+      <div class="row"><div class="t">05:30</div><div class="a"><div class="what">起床收拾（与原计划同一时刻，但人已在机场旁）</div></div></div>
+      <div class="row"><div class="t">06:00</div><div class="a"><div class="what">抵达航站楼：值机 · 安检 · 出境</div></div></div>
+      <div class="row hl"><div class="t">08:20</div><div class="a"><div class="what">返程航班起飞 ✈️</div></div></div>
+      <div class="row"><div class="t">14:15</div><div class="a"><div class="what">抵达新加坡樟宜机场</div></div></div>
+    </div>
+    <div class="tip"><b>博主贴士 ·</b> 前一晚的戏剧幻城离机场只有1小时，看完戏睡机场旁——比原计划凌晨从洛阳摸黑赶2小时车，多的不是睡眠，是安全感。</div>
+  </article>
+</section>
+
+<!-- ================= 备选 & 清单 ================= -->
+<section>
+  <div class="sec-head"><span class="sec-num">叁 · 锦囊</span><h2>备选方案 与 <em>行前清单</em></h2></div>
+  <div class="two-col">
+    <div class="panel">
+      <h3>弹性备选（按体力与天气临场换）</h3>
+      <ul>
+        <li><b>9/18 爬不动 / 起晚了：</b>随时降级回「索道上山」方案（往返约¥100），下午栈道照走，爽感保留八成。</li>
+        <li><b>9/18 天气差：</b>雨天栈道湿滑 + 索道可能停运，当天改纯少林寺深度游，把爬山额度全押给 9/20 龙潭大峡谷（峡谷雨后水量更大反而更好看，注意防滑）。</li>
+        <li><b>9/20 想要顶级震撼：</b>置换成老君山一日（金顶道观群，「远赴人间惊鸿宴」）——但单程车程约3小时 + 两段索道，会很累，且当晚汉服夜游取消。适合体力怪，不是默认项。</li>
+        <li><b>9/20 想彻底躺平：</b>降级为黄河小浪底（车程40分钟，看大坝和黄河，纯遛弯）+ 下午汉服照旧——轻松，但记忆点弱于峡谷。</li>
+        <li><b>9/21 不想赶戏剧幻城：</b>降级方案是郑州东站旁逛「郑州CBD大玉米」晚景后直接去机场酒店，轻松但平淡——不推荐，幻城才是给外宾的记忆点。</li>
+        <li><b>9/21 幻城门票售罄：</b>改白天场（12:00–17:00），傍晚从容去机场，睡得更早。</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>出发前在新加坡就要办的事</h3>
+      <ul>
+        <li><b>只有河南主剧场票</b>（官方小程序，锁 9/21 下午+晚上两场，售罄快，最优先办）</li>
+        <li><b>洛阳博物馆预约</b>（提前3天放票，抢 9/17 周四场）</li>
+        <li><b>洛邑古城预约</b>（免费，小程序，9/17 与 9/20 各一次）</li>
+        <li><b>龙门石窟夜场票</b>（先确认9月夜场开放，再购 9/19 晚场；未开放则改购上午场并把白马寺调回下午）</li>
+        <li><b>高铁票</b>：9/17 机场→洛阳龙门、9/21 洛阳龙门→郑州东</li>
+        <li><b>机场酒店</b>订 9/21 一晚；洛阳酒店 9/17–9/21 四晚连住</li>
+        <li><b>9/18 包车</b>提前一天和师傅约好 7:00 出发、17:15 山下接</li>
+        <li><b>9/20 包车</b>约半天：7:30 出发龙潭大峡谷、13:00 前回市区</li>
+        <li>登山鞋/运动鞋、护膝、1.5L水壶、防晒、少量现金</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="brand">神都洛陽</div>
+  <div>6天5晚 · 两次爬山 · 一座戏剧幻城 · 三碗汤 · 到达出发时间原封不动</div>
+  <div style="margin-top:6px;opacity:.7">索道末班、门票与场次以出行当日官方公告为准 · 2026年9月版 V2</div>
+</footer>
+
+</body>
+</html>
