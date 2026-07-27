@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<meta name="theme-color" content="#0c1226">
+<meta name="apple-mobile-web-app-title" content="追月亮的人">
+<meta name="referrer" content="no-referrer">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="追月亮的人 · 西域十二天">
+<meta property="og:description" content="这不是旅行，是一场护送月亮回家的任务。9.25 中秋满月启程 → 10.6 半月归来，北京出发北疆自驾。">
+<meta property="og:locale" content="zh_CN">
+<meta name="description" content="追月亮的人——西域十二天。中秋满月夜落地乌鲁木齐，十二天护送月亮从满月走到半月：赛里木湖月光路、唐布拉银河、独库天路、吐鲁番两季穿越。亲子自驾任务书，含全程地图与逐日景点时间轴。">
+
+<title>追月亮的人 · 西域十二天</title>
+
+<link rel="preconnect" href="https://fonts.loli.net">
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin>
+<link href="https://fonts.loli.net/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Leaflet — 主源 BootCDN, 失败时同步加载 jsDelivr fallback -->
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+      onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css';" />
+<script src="https://cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+(function(){
+  if (typeof L === 'undefined') {
+    document.write('<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" defer><\/script>');
+  }
+})();
+</script>
+
+<style>
+/* ════════════════════════════════════════════════
+   追月亮的人 — MOON COURIER · NIGHT EXPEDITION
+   深夜蓝绢纸 · 月光银 · 篝火金 · 任务档案风
+   ════════════════════════════════════════════════ */
+:root{
+  --night:      #0c1226;
+  --night-2:    #111a33;
+  --night-3:    #18244a;
+  --night-soft: #1d2b52;
+  --moon:       #f2ead2;
+  --moon-dim:   #c8bfa4;
+  --moon-faint: #8e8977;
+  --silver:     #aebad6;
+  --silver-dim: #6b769a;
+  --gold:       #e0a458;
+  --gold-deep:  #b97f35;
+  --ember:      #d96f4e;
+  --jade:       #7fb59a;
+  --card:       rgba(255,255,255,.035);
+  --card-solid: #141d3b;
+  --line:       rgba(174,186,214,.18);
+  --line-gold:  rgba(224,164,88,.35);
+  --display: "Ma Shan Zheng", "ZCOOL XiaoWei", serif;
+  --title:   "ZCOOL XiaoWei", "Noto Serif SC", serif;
+  --serif:   "Noto Serif SC", serif;
+  --sans:    "Noto Sans SC", sans-serif;
+  --mono:    "DM Mono", monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+*::selection{background:var(--gold);color:var(--night);}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--night);
+  background-image:
+    radial-gradient(ellipse 70% 50% at 80% -5%, rgba(224,164,88,.10) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 45% at 10% 30%, rgba(46,72,140,.35) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 90% 75%, rgba(38,58,110,.30) 0%, transparent 60%);
+  background-attachment:fixed;
+  color:var(--moon);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.85;
+  overflow-x:hidden;
+}
+/* 星星 */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, rgba(242,234,210,.8) 50%, transparent 51%),
+    radial-gradient(1px 1px at 28% 62%, rgba(242,234,210,.5) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 41% 9%, rgba(242,234,210,.9) 50%, transparent 51%),
+    radial-gradient(1px 1px at 57% 39%, rgba(174,186,214,.6) 50%, transparent 51%),
+    radial-gradient(1px 1px at 66% 81%, rgba(242,234,210,.5) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 78% 24%, rgba(242,234,210,.85) 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 55%, rgba(174,186,214,.55) 50%, transparent 51%),
+    radial-gradient(1px 1px at 8% 84%, rgba(242,234,210,.6) 50%, transparent 51%),
+    radial-gradient(1.2px 1.2px at 94% 90%, rgba(242,234,210,.7) 50%, transparent 51%),
+    radial-gradient(1px 1px at 48% 96%, rgba(174,186,214,.5) 50%, transparent 51%);
+  background-size:900px 900px;
+  animation:twinkle 6s ease-in-out infinite alternate;
+}
+@keyframes twinkle{from{opacity:.55}to{opacity:1}}
+.wrap{max-width:900px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+
+/* ============ HERO ============ */
+.hero{position:relative;padding:110px 0 80px;text-align:center;overflow:hidden;}
+.big-moon{
+  width:150px;height:150px;border-radius:50%;
+  margin:0 auto 40px;position:relative;
+  background:radial-gradient(circle at 38% 34%, #fdf8e7 0%, #f2ead2 45%, #d9cda8 100%);
+  box-shadow:
+    0 0 60px rgba(242,234,210,.35),
+    0 0 140px rgba(242,234,210,.15),
+    inset -14px -10px 30px rgba(160,140,95,.35);
+  animation:moonfloat 7s ease-in-out infinite;
+}
+.big-moon::before,.big-moon::after{
+  content:"";position:absolute;border-radius:50%;
+  background:rgba(160,140,95,.28);
+}
+.big-moon::before{width:30px;height:30px;left:28%;top:30%;}
+.big-moon::after{width:18px;height:18px;left:58%;top:56%;box-shadow:-28px 22px 0 -4px rgba(160,140,95,.22);}
+@keyframes moonfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.hero-kicker{
+  font-family:var(--mono);font-size:12px;letter-spacing:.45em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:22px;
+}
+h1{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(46px,9vw,86px);
+  line-height:1.2;letter-spacing:.06em;
+  color:var(--moon);
+  text-shadow:0 0 40px rgba(242,234,210,.25);
+}
+h1 .g{color:var(--gold);}
+.hero-sub{
+  margin:26px auto 0;max-width:600px;
+  font-family:var(--serif);font-size:17px;color:var(--silver);
+}
+.hero-sub b{color:var(--moon);font-weight:600;}
+.mission{
+  margin:44px auto 0;max-width:640px;
+  border:1px solid var(--line-gold);
+  background:linear-gradient(160deg, rgba(224,164,88,.08), rgba(224,164,88,.02));
+  border-radius:4px;padding:30px 34px;
+  position:relative;text-align:left;
+}
+.mission::before{
+  content:"绝密 · 任务书";
+  position:absolute;top:-12px;left:28px;
+  background:var(--night);padding:0 14px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--gold);
+}
+.mission p{font-family:var(--serif);font-size:15.5px;color:var(--moon-dim);}
+.mission p b{color:var(--gold);font-weight:700;}
+.mission .sig{
+  margin-top:14px;text-align:right;
+  font-family:var(--display);font-size:20px;color:var(--silver);
+}
+.phase-strip{
+  display:flex;justify-content:center;gap:6px;margin-top:48px;
+  font-size:24px;letter-spacing:2px;
+  filter:drop-shadow(0 0 8px rgba(242,234,210,.3));
+}
+.phase-strip span{opacity:.9;}
+.phase-note{font-family:var(--mono);font-size:11px;color:var(--silver-dim);letter-spacing:.25em;margin-top:8px;}
+
+/* ============ section 通用 ============ */
+section{padding:76px 0 10px;}
+.sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:38px;}
+.sec-num{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.35em;white-space:nowrap;}
+h2{
+  font-family:var(--title);font-weight:400;
+  font-size:clamp(26px,4.5vw,38px);letter-spacing:.08em;color:var(--moon);
+}
+h2 em{font-style:normal;color:var(--gold);}
+.sec-head::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);}
+
+/* ============ 全程地图 ============ */
+.map-shell{
+  border:1px solid var(--line-gold);
+  border-radius:18px;overflow:hidden;
+  box-shadow:0 14px 50px rgba(0,0,0,.45);
+  position:relative;
+}
+#tripmap{height:520px;background:var(--night-2);}
+#tripmap .leaflet-tile{
+  filter:invert(1) hue-rotate(195deg) saturate(.42) brightness(.78) contrast(.95);
+}
+#tripmap .leaflet-control-attribution{
+  background:rgba(12,18,38,.8);color:var(--silver-dim);font-size:10px;
+}
+#tripmap .leaflet-control-attribution a{color:var(--silver-dim);}
+.day-marker{
+  display:flex;align-items:center;justify-content:center;
+  width:30px;height:30px;border-radius:50%;
+  background:var(--night);border:2px solid var(--gold);
+  color:var(--gold);font-family:var(--mono);font-size:11px;font-weight:700;
+  box-shadow:0 0 12px rgba(224,164,88,.55);
+}
+.day-marker.stay{border-color:var(--silver);color:var(--silver);box-shadow:0 0 12px rgba(174,186,214,.45);}
+.leaflet-popup-content-wrapper{
+  background:var(--card-solid);color:var(--moon);
+  border:1px solid var(--line-gold);border-radius:12px;
+  font-family:var(--sans);
+}
+.leaflet-popup-content{margin:12px 16px;font-size:13px;line-height:1.7;}
+.leaflet-popup-content b{color:var(--gold);font-family:var(--serif);}
+.leaflet-popup-tip{background:var(--card-solid);border:1px solid var(--line-gold);}
+.map-legend{
+  display:flex;flex-wrap:wrap;gap:16px;justify-content:center;
+  margin-top:18px;font-family:var(--mono);font-size:12px;color:var(--silver-dim);letter-spacing:.1em;
+}
+.map-legend span{display:flex;align-items:center;gap:7px;}
+.lg-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--gold);background:var(--night);box-shadow:0 0 8px rgba(224,164,88,.5);}
+.lg-dot.s{border-color:var(--silver);box-shadow:0 0 8px rgba(174,186,214,.4);}
+.lg-line{width:26px;height:0;border-top:2.5px dashed var(--gold);}
+.map-fallback{
+  padding:26px 30px;font-size:14px;color:var(--silver);
+  font-family:var(--serif);display:none;
+}
+.map-fallback b{color:var(--gold);}
+
+/* ============ 装备卡 ============ */
+.gear-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;}
+.gear{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:26px 26px 22px;backdrop-filter:blur(4px);
+  transition:border-color .3s, transform .3s;
+}
+.gear:hover{border-color:var(--line-gold);transform:translateY(-4px);}
+.gear h3{
+  font-family:var(--serif);font-size:17px;font-weight:700;color:var(--moon);
+  margin-bottom:14px;display:flex;align-items:center;gap:10px;
+}
+.gear h3 .ico{font-size:22px;}
+.gear li{
+  list-style:none;font-size:14px;color:var(--silver);
+  padding:6px 0 6px 20px;position:relative;
+}
+.gear li::before{content:"◦";position:absolute;left:2px;color:var(--gold);}
+.gear li b{color:var(--moon);font-weight:500;}
+.gear .cost{
+  margin-top:12px;font-family:var(--mono);font-size:12px;
+  color:var(--gold);letter-spacing:.15em;
+}
+
+/* ============ 章节标题 ============ */
+.chapter{
+  margin:80px 0 30px;text-align:center;position:relative;
+}
+.chapter::before{
+  content:"";position:absolute;left:0;right:0;top:50%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line) 20%,var(--line) 80%,transparent);
+}
+.chapter span{
+  position:relative;background:var(--night);padding:0 30px;
+  font-family:var(--display);font-size:clamp(26px,5vw,40px);
+  color:var(--gold);letter-spacing:.2em;
+}
+.chapter small{
+  display:block;position:relative;margin-top:4px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.5em;color:var(--silver-dim);
+}
+
+/* ============ day 卡 ============ */
+.day{
+  background:var(--card-solid);
+  border:1px solid var(--line);
+  border-radius:18px;margin-bottom:40px;overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,.35);
+}
+.day-head{
+  display:flex;align-items:center;gap:18px;
+  padding:24px 30px;border-bottom:1px solid var(--line);
+  background:linear-gradient(135deg, rgba(224,164,88,.07), transparent 55%);
+}
+.moon-badge{
+  font-size:38px;line-height:1;
+  filter:drop-shadow(0 0 10px rgba(242,234,210,.35));
+}
+.day-title h3{
+  font-family:var(--serif);font-weight:900;
+  font-size:clamp(18px,3vw,23px);color:var(--moon);letter-spacing:.02em;
+}
+.day-title .date{
+  font-family:var(--mono);font-size:12px;color:var(--gold);
+  letter-spacing:.2em;margin-top:3px;
+}
+.drive{
+  margin-left:auto;text-align:right;white-space:nowrap;
+  font-family:var(--mono);font-size:12px;color:var(--silver-dim);letter-spacing:.1em;
+}
+.drive b{display:block;color:var(--silver);font-size:14px;}
+.day-body{padding:22px 30px 6px;}
+.day-body p{font-size:15px;color:var(--silver);margin-bottom:14px;}
+.day-body p b{color:var(--moon);font-weight:600;}
+.day-body p .hi{color:var(--gold);font-weight:600;}
+
+/* ---- 时间轴 ---- */
+.tl{margin:4px 0 16px;}
+.trow{
+  display:grid;grid-template-columns:96px 1fr;gap:16px;
+  position:relative;padding:10px 0;
+}
+.trow:not(:last-child)::before{
+  content:"";position:absolute;left:112px;top:30px;bottom:-10px;
+  width:1px;background:var(--line);
+}
+.trow::after{
+  content:"";position:absolute;left:108.5px;top:22px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--night);border:2px solid var(--silver-dim);
+}
+.trow.hl::after{background:var(--gold);border-color:var(--gold);box-shadow:0 0 8px rgba(224,164,88,.6);}
+.trow .tt{
+  font-family:var(--mono);font-size:12.5px;color:var(--silver-dim);
+  text-align:right;padding-top:3px;letter-spacing:.05em;white-space:nowrap;
+}
+.trow .ta{padding-left:26px;font-size:14.5px;color:var(--silver);}
+.trow .ta b{color:var(--moon);font-weight:600;}
+.trow.hl .ta b{color:var(--gold);}
+.trow .sub{display:block;font-size:12.5px;color:var(--silver-dim);margin-top:2px;}
+
+.task{
+  margin:16px 0;border-left:3px solid var(--gold);
+  background:rgba(224,164,88,.07);border-radius:0 12px 12px 0;
+  padding:13px 20px;font-size:14.5px;color:var(--moon-dim);
+}
+.task b{color:var(--gold);font-family:var(--serif);}
+.letter{
+  margin:16px 0;border:1px dashed rgba(224,164,88,.5);
+  background:rgba(242,234,210,.05);border-radius:12px;
+  padding:15px 20px;font-size:14.5px;color:var(--moon-dim);
+  font-family:var(--serif);
+}
+.letter b{color:var(--ember);}
+.night-note{
+  margin:16px 0;border-left:3px solid var(--silver);
+  background:rgba(174,186,214,.07);border-radius:0 12px 12px 0;
+  padding:13px 20px;font-size:14.5px;color:var(--silver);
+}
+.night-note b{color:var(--moon);}
+.warn{
+  margin:16px 0;border-left:3px solid var(--ember);
+  background:rgba(217,111,78,.09);border-radius:0 12px 12px 0;
+  padding:13px 20px;font-size:14px;color:var(--moon-dim);
+}
+.warn b{color:var(--ember);}
+.hotel{
+  display:flex;align-items:center;gap:10px;
+  margin:6px 30px 24px;padding-top:14px;
+  border-top:1px dashed var(--line);
+  font-family:var(--mono);font-size:13px;color:var(--silver-dim);letter-spacing:.12em;
+  flex-wrap:wrap;
+}
+.hotel b{color:var(--jade);font-weight:500;}
+.hotel .bk{font-size:11.5px;color:var(--silver-dim);opacity:.85;}
+.meta-pills{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 14px;}
+.pill{
+  font-size:12px;padding:3px 12px;border-radius:999px;letter-spacing:.03em;
+  border:1px solid var(--line);color:var(--silver);
+}
+.pill.gold{border-color:var(--line-gold);color:var(--gold);}
+.pill.tbd{border-color:rgba(217,111,78,.5);color:var(--ember);}
+
+/* 预案表 */
+.plans{margin:16px 0;display:grid;gap:10px;}
+.plan{
+  display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;
+  background:rgba(255,255,255,.03);border:1px solid var(--line);
+  border-radius:12px;padding:13px 16px;font-size:14px;color:var(--silver);
+}
+.plan .k{
+  font-family:var(--display);font-size:24px;color:var(--gold);
+  text-align:center;line-height:1.2;
+}
+.plan b{color:var(--moon);}
+
+/* ============ 元素收集 ============ */
+.elements{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:14px;margin:20px 0;
+}
+.el{
+  text-align:center;border:1px solid var(--line);border-radius:14px;
+  background:var(--card);padding:22px 12px 18px;
+}
+.el .e-ico{font-size:34px;filter:drop-shadow(0 0 12px rgba(242,234,210,.25));}
+.el h4{font-family:var(--serif);font-size:15px;color:var(--moon);margin:10px 0 4px;}
+.el p{font-size:12.5px;color:var(--silver-dim);}
+
+/* ============ 铁律 & 清单 ============ */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.panel{
+  background:var(--card-solid);border:1px solid var(--line);
+  border-radius:16px;padding:28px 30px;
+}
+.panel h3{
+  font-family:var(--serif);font-size:18px;font-weight:900;color:var(--moon);
+  margin-bottom:16px;display:flex;align-items:center;gap:10px;
+}
+.panel h3::before{content:"✦";color:var(--gold);font-size:14px;}
+.panel li{
+  list-style:none;font-size:14px;color:var(--silver);
+  padding:8px 0 8px 24px;position:relative;
+  border-bottom:1px dashed rgba(174,186,214,.12);
+}
+.panel li:last-child{border-bottom:none;}
+.panel li::before{
+  content:"";position:absolute;left:3px;top:17px;
+  width:7px;height:7px;border:1.5px solid var(--gold);border-radius:2px;
+  transform:rotate(45deg);
+}
+.panel li b{color:var(--moon);}
+.panel.todo li::before{border-color:var(--ember);border-radius:50%;}
+
+/* ============ why & ending ============ */
+.why{
+  border:1px solid var(--line-gold);border-radius:18px;
+  background:linear-gradient(160deg, rgba(224,164,88,.09), rgba(224,164,88,.02));
+  padding:34px 38px;margin-top:10px;
+}
+.why h3{
+  font-family:var(--title);font-size:24px;color:var(--gold);
+  font-weight:400;letter-spacing:.08em;margin-bottom:14px;
+}
+.why p{font-family:var(--serif);font-size:15.5px;color:var(--moon-dim);margin-bottom:12px;}
+.why p b{color:var(--moon);}
+.ending{
+  text-align:center;padding:90px 0 40px;
+}
+.ending .moons{font-size:40px;letter-spacing:14px;filter:drop-shadow(0 0 14px rgba(242,234,210,.35));}
+.ending h3{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(26px,5.5vw,44px);color:var(--moon);
+  margin-top:26px;letter-spacing:.08em;line-height:1.5;
+}
+.ending h3 .g{color:var(--gold);}
+.ending p{margin-top:16px;font-family:var(--serif);color:var(--silver);font-size:15.5px;}
+
+footer{
+  margin-top:60px;padding:38px 0 52px;text-align:center;
+  border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:12px;color:var(--silver-dim);letter-spacing:.18em;
+}
+footer .brand{
+  font-family:var(--display);font-size:24px;color:var(--gold);
+  letter-spacing:.35em;margin-bottom:10px;
+}
+
+/* 入场动画 */
+.day,.gear,.panel,.why,.mission,.el,.map-shell{animation:rise .7s ease both;}
+@keyframes rise{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+
+@media(max-width:600px){
+  .day-head{padding:18px 18px;gap:12px;flex-wrap:wrap;}
+  .day-body{padding:18px 18px 4px;}
+  .hotel{margin:4px 18px 20px;}
+  .drive{margin-left:0;text-align:left;width:100%;}
+  .mission{padding:24px 20px;}
+  .hero{padding:80px 0 60px;}
+  .big-moon{width:110px;height:110px;}
+  #tripmap{height:400px;}
+  .trow{grid-template-columns:70px 1fr;}
+  .trow:not(:last-child)::before{left:86px;}
+  .trow::after{left:82.5px;}
+  .trow .tt{font-size:11px;}
+  .trow .ta{padding-left:22px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="big-moon"></div>
+    <div class="hero-kicker">Moon Courier · 北京出发 · 2026.09.25 — 10.06</div>
+    <h1>追<span class="g">月亮</span>的人<br>西域十二天</h1>
+    <p class="hero-sub">这不是旅行，是一场<b>「护送月亮回家」</b>的任务。<br>
+    9月25日中秋，你们落地那晚，月亮最圆。接下来12天，它每晚升起晚约50分钟、一点点变瘦——孩子每晚记录它的形状，看着它从满月走到半月，把它平安送到天山另一头。</p>
+    <div class="mission">
+      <p>这个设定的妙处：<b>它是真的。</b>天文事实完美贴合行程——赛里木湖满月、唐布拉暗夜星空、吐鲁番下弦月，全部按剧本上演。</p>
+      <p style="margin-top:10px;">大人不用编，<b>宇宙已经写好了。</b></p>
+      <div class="sig">—— 月亮办公室</div>
+    </div>
+    <div class="phase-strip">
+      <span>🌕</span><span>🌖</span><span>🌖</span><span>🌖</span><span>🌗</span><span>🌗</span>
+    </div>
+    <div class="phase-note">FULL MOON → LAST QUARTER · 每晚一枚贴纸</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ═══════════ 全程地图 ═══════════ -->
+<section>
+  <div class="sec-head"><span class="sec-num">〇 · 月亮的路线</span><h2>全程地图 · <em>北疆大环线</em></h2></div>
+  <div class="map-shell">
+    <div id="tripmap"></div>
+    <div class="map-fallback" id="mapFallback">
+      <b>路线一览（地图加载失败时的文字版）：</b><br>
+      乌鲁木齐 →(D2) 奎屯 · 独山子大峡谷 →(D3) 赛里木湖 →(D4) 伊宁·喀赞其/六星街 →(D5 休整) →(D6) 库尔德宁（宿景区内）→(D7) 那拉提河谷草原 →(D8) 乔尔玛 → 唐布拉·S315 百里画廊 →(D9) 独库公路北段·哈希勒根达坂 → 奎屯 →(D10) 吐鲁番 · 坎儿井 · 交河故城 →(D11) 火焰山 · 葡萄沟(待定) · 库木塔格沙漠 →(D12) 乌鲁木齐 · 博物馆 · 还车返程
+    </div>
+  </div>
+  <div class="map-legend">
+    <span><i class="lg-dot"></i>过夜地（标注 Day）</span>
+    <span><i class="lg-dot s"></i>途经景点</span>
+    <span><i class="lg-line"></i>行车路线</span>
+  </div>
+</section>
+
+<!-- ═══════════ 装备 ═══════════ -->
+<section>
+  <div class="sec-head"><span class="sec-num">〇 · 行前密令</span><h2>信使装备 与 <em>大人的秘密道具</em></h2></div>
+  <div class="gear-grid">
+    <div class="gear">
+      <h3><span class="ico">🎒</span>孩子的装备（出发前一晚发放）</h3>
+      <ul>
+        <li><b>《追月手册》×2</b>：A5 牛皮本，第一页贴任务书——"月亮信使 XXX，编号 001"</li>
+        <li>月相贴纸一套 + 丙烯笔一盒</li>
+        <li>小空瓶 ×2（后面有用，别问）</li>
+        <li>便宜指南针 ×2</li>
+        <li><b>「信使徽章」</b>一枚：现成的星月徽章，别在外套上</li>
+      </ul>
+      <div class="cost">总成本 &lt; ¥80</div>
+    </div>
+    <div class="gear">
+      <h3><span class="ico">🤫</span>大人的秘密道具</h3>
+      <ul>
+        <li>提前写好 <b>2 封「月亮来信」</b>（何时启用，见 Day4 与 Day12）</li>
+        <li><b>车载蓝牙音箱歌单 ×3</b>：《西游记》原声 · 哈萨克冬不拉曲 · 《新疆是个好地方》</li>
+        <li>进入不同地界切不同 BGM——孩子会记住<b>"那首歌响起来的时候，窗外是雪山"</b></li>
+      </ul>
+      <div class="cost">成本：两页信纸 + 一点演技</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 第一章 ═══════════ -->
+<div class="chapter"><span>第一章 · 启程</span><small>CHAPTER I · DEPARTURE</small></div>
+
+<!-- DAY 1 -->
+<article class="day">
+  <div class="day-head">
+    <div class="moon-badge">🌕</div>
+    <div class="day-title"><h3>接头之夜</h3><div class="date">DAY 1 · 9.25 周五 · 中秋 · 北京 → 乌鲁木齐</div></div>
+    <div class="drive"><b>HU7245</b>14:15 — 18:30</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="trow"><div class="tt">14:15</div><div class="ta"><b>海航 HU7245</b> 北京首都起飞<span class="sub">18:30 落地乌鲁木齐</span></div></div>
+      <div class="trow"><div class="tt">18:30</div><div class="ta"><b>机场取车 → 酒店</b><span class="sub">验 ISOFIX×2 · 备胎 · 双驾驶员登记</span></div></div>
+      <div class="trow hl"><div class="tt">20:00</div><div class="ta"><b>大巴扎 · 和田二街</b>傍晚逛吃<span class="sub">切糕当月饼 · 任务①在这里开张</span></div></div>
+      <div class="trow hl"><div class="tt">21:30</div><div class="ta"><b>看满月 · 发《追月手册》</b><span class="sub">"看到了吗？月亮今晚最胖。我们的任务，是陪它走到天山那头。"</span></div></div>
+    </div>
+    <div class="task"><b>任务① · 砍价的勇气</b>——大巴扎里，每人用 20 元预算独立完成一次砍价，买自己的花帽。买贵了也算完成：<b>勇气就是任务本身。</b></div>
+    <div class="night-note"><b>🌕 今晚月相：满月。</b>贴第一枚满月贴纸，任务正式开始。</div>
+  </div>
+  <div class="hotel">🏨 宿 <b>乌鲁木齐 · 百丽</b><span class="bk">（之之携程）</span></div>
+</article>
+
+<!-- DAY 2 -->
+<article class="day">
+  <div class="day-head">
+    <div class="moon-badge">🌖</div>
+    <div class="day-title"><h3>补给与峡谷</h3><div class="date">DAY 2 · 9.26 周六 · 乌鲁木齐 → 奎屯 → 独山子大峡谷</div></div>
+    <div class="drive"><b>2.5h + 1h</b>两段</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="trow"><div class="tt">10:00</div><div class="ta">乌鲁木齐出发，向西 2.5h</div></div>
+      <div class="trow"><div class="tt">12:30</div><div class="ta"><b>到达奎屯</b>：午饭 · 办理入住<span class="sub">超市采购水和零食——孩子任"补给官"，照清单找货</span></div></div>
+      <div class="trow hl"><div class="tt">午后</div><div class="ta"><b>独山子大峡谷</b>（车程 1h，游玩 2h）<span class="sub">悬空观景台 · 打卡悬崖咖啡店 ☕</span></div></div>
+      <div class="trow"><div class="tt">傍晚</div><div class="ta">回奎屯，早点休息</div></div>
+    </div>
+    <div class="night-note"><b>🌖 今晚月相：亏凸月。</b>贴纸打卡——"看，它开始上路了。"</div>
+  </div>
+  <div class="hotel">🏨 宿 <b>奎屯市区 · 亚朵</b><span class="bk">（老王）</span></div>
+</article>
+
+<!-- ═══════════ 第二章 ═══════════ -->
+<div class="chapter"><span>第二章 · 圣湖</span><small>CHAPTER II · THE SACRED LAKE</small></div>
+
+<!-- DAY 3 -->
+<article class="day">
+  <div class="day-head">
+    <div class="moon-badge">🌖</div>
+    <div class="day-title"><h3>蓝色的心脏</h3><div class="date">DAY 3 · 9.27 周日 · 奎屯 → 赛里木湖</div></div>
+    <div class="drive"><b>3.5h</b>车程</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="trow"><div class="tt">10:00</div><div class="ta">奎屯出发，G30 向西</div></div>
+      <div class="trow"><div class="tt">14:00</div><div class="ta"><b>到达赛里木湖 · 办理入住</b></div></div>
+      <div class="trow hl"><div class="tt">15:00–18:30</div><div class="ta"><b>东岸精华：月亮湾 · 松树头 · 点将台浅滩</b><span class="sub">果子沟大桥在景区内观景台拍</span></div></div>
+      <div class="trow hl"><div class="tt">20:30</div><div class="ta"><b>湖边月光路</b>（全程高光之夜）<span class="sub">气温近 0°C · 20 分钟撤回 · 热水袋备好</span></div></div>
+    </div>
+    <div class="task"><b>任务② · 赛湖蓝</b>——捡 3 块"赛湖蓝"石头，并告诉孩子一个真秘密：<b>这湖没有一条河流出去，所有的水只进不出，所以它把蓝色攒了两千年。</b></div>
+    <div class="night-note"><b>🌕 全程高光：</b>看月亮从湖面升起、银光铺成一条路。告诉孩子：<b>"这条路就是月亮走的路，我们明天沿着它往西。"</b></div>
+  </div>
+  <div class="hotel">🏨 宿 <b>赛里木湖 · 城际</b><span class="bk">（老王）</span></div>
+</article>
+
+<!-- DAY 4 -->
+<article class="day">
+  <div class="day-head">
+    <div class="moon-badge">🌖</div>
+    <div class="day-title"><h3>彩色小镇的信</h3><div class="date">DAY 4 · 9.28 周一 · 赛里木湖 → 伊宁</div></div>
+    <div class="drive"><b>2h</b>车程</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="trow"><div class="tt">上午</div><div class="ta">湖边最后转一圈，出发伊宁<span class="sub">果子沟高速下山</span></div></div>
+      <div class="trow hl"><div class="tt">14:00–17:00</div><div class="ta"><b>喀赞其蓝色小镇</b><span class="sub">彩色民居 · 喂鸽子 · 短途马车 🐎</span></div></div>
+      <div class="trow hl"><div class="tt">傍晚</div><div class="ta"><b>六星街</b>闲逛<span class="sub">手工冰淇淋 · 酸奶粽子 · 手风琴珍藏馆（运气好有现场演奏）</span></div></div>
+      <div class="trow"><div class="tt">20:30</div><div class="ta">回酒店<span class="sub">今晚有惊喜（见下）</span></div></div>
+    </div>
+    <div class="task"><b>任务③ · 第一句维语</b>——学会"亚克西姆赛斯"（你好），在喀赞其对小镇居民用出去。</div>
+    <div class="letter"><b>✉ 秘密道具启用：</b>孩子枕头下出现<b>第一封「月亮来信」</b>（大人提前写好，字迹歪一点）：<br>"信使，干得漂亮。我今晚会瘦一点，别担心，这是旅途的一部分。——月亮"</div>
+  </div>
+  <div class="hotel">🏨 宿 <b>伊宁市 · 亚朵</b><span class="bk">（老王 · 连住 2 晚）</span></div>
+</article>
+
+<!-- DAY 5 -->
+<article class="day">
+  <div class="day-head">
+    <div class="moon-badge">🌖</div>
+    <div class="day-title"><h3>不赶路的一天</h3><div class="date">DAY 5 · 9.29 周二 · 伊宁</div></div>
+    <div class="drive"><b>0h</b>休整日</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="trow"><div class="tt">自然醒</div><div class="ta">睡懒觉，不用赶路——睡饱是今天的第一景点</div></div>
+      <div class="trow hl"><div class="tt">上午</div><div class="ta"><b>伊犁河公园</b>散步<span class="sub">河边捡石头（给下午的彩绘攒原料）</span></div></div>
+      <div class="trow"><div class="tt">14:00–16:00</div><div class="ta"><b>酒店"营地日"</b>：石头彩绘（任务④）</div></div>
+      <div class="trow hl"><div class="tt">午后–日落</div><div class="ta"><b>伊犁河大桥看日落</b><span class="sub">伊犁河的落日是全疆最温柔的一场</span></div></div>
+      <div class="trow"><div class="tt">晚上</div><div class="ta">市区采购瓜果零食，补齐后半程物资</div></div>
+    </div>
+    <div class="task"><b>任务④ · 营地日创作</b>——给捡来的石头彩绘：画出你心里的"月亮路"。成品是全程最好的纪念品。</div>
+    <div class="meta-pills"><span class="pill gold">今天顺手办：抢新疆博物馆预约（提前 7 天放票，抢 10.6）</span></div>
+  </div>
+  <div class="hotel">🏨 宿 <b>伊宁市 · 亚朵</b><span class="bk">（老王）</span></div>
+</article>
+
+<!-- ═══════════ 第三章 ═══════════ -->
+<div class="chapter"><span>第三章 · 草原</span><small>CHAPTER III · THE GRASSLAND</small></div>
+
+<!-- DAY 6 -->
+<article class="day">
+  <div class="day-head">
+    <div class="moon-badge">🌖</div>
+    <div class="day-title"><h3>云杉的走廊</h3><div class="date">DAY 6 · 9.30 周三 · 伊宁 → 库尔德宁</div></div>
+    <div class="drive"><b>2.5h</b>车程</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="trow"><div class="tt">09:30</div><div class="ta">伊宁出发，前往库尔德宁</div></div>
+      <div class="trow hl"><div class="tt">12:00–16:00</div><div class="ta"><b>库尔德宁亲子精华游</b>（4 小时）<span class="sub">私家车直接开进景区 · 中沟进—东沟出单向环线</span></div></div>
+      <div class="trow"><div class="tt">①</div><div class="ta"><b>十里画廊河谷</b><span class="sub">溪水边玩水捡石头</span></div></div>
+      <div class="trow"><div class="tt">②</div><div class="ta"><b>蜂香驿站</b><span class="sub">平缓木栈道逛云杉森林</span></div></div>
+      <div class="trow"><div class="tt">③</div><div class="ta"><b>喀峰大本营</b>草坪休息<span class="sub">远眺喀班巴依雪峰 🏔</span></div></div>
+      <div class="trow"><div class="tt">17:00</div><div class="ta">入住景区内民宿——<b>今晚睡在云杉林里</b></div></div>
+    </div>
+    <div class="task"><b>任务⑤ · 工具与天空</b>——找一片最美的叶子夹进手册 + 用指南针确认"我们真的在往月亮落下的方向走"。<b>孩子第一次发现工具和天空能对上，这个瞬间比景点值钱。</b></div>
+  </div>
+  <div class="hotel">🏨 宿 <b>库尔德宁景区内民宿 · 那一叶</b><span class="bk">（之之携程 + 途家）</span></div>
+</article>
+
+<!-- DAY 7 -->
+<article class="day">
+  <div class="day-head">
+    <div class="moon-badge">🌗</div>
+    <div class="day-title"><h3>马背上的草原</h3><div class="date">DAY 7 · 10.1 周四 · 国庆 · 库尔德宁 → 那拉提</div></div>
+    <div class="drive"><b>3h</b>240km</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="trow"><div class="tt">09:00 后</div><div class="ta">库尔德宁出发<span class="sub">山路边走边看，不赶</span></div></div>
+      <div class="trow"><div class="tt">12:00</div><div class="ta">抵达那拉提镇，午饭 + 入住</div></div>
+      <div class="trow hl"><div class="tt">下午</div><div class="ta"><b>那拉提河谷草原</b><span class="sub">优先河谷草原：白桦林 + 雪山层次更好 · 步道平缓适合小朋友</span></div></div>
+      <div class="trow"><div class="tt">21:00</div><div class="ta">早睡 + 睡前悬念（见下）</div></div>
+    </div>
+    <div class="task"><b>任务⑥ · 第一句哈萨克语</b>——学会"热合买提"（谢谢），今天在草原上对牧民、回民宿时对主人，用出去。</div>
+    <div class="night-note"><b>🌙 睡前预告</b>（留一夜悬念）："明天起，我们要走一条<b>用命修出来的路</b>。"</div>
+  </div>
+  <div class="hotel">🏨 宿 <b>那拉提景区内民宿 · 拈花湾哈茵赛</b><span class="bk">（之之携程）</span></div>
+</article>
+
+<!-- DAY 8 -->
+<article class="day">
+  <div class="day-head">
+    <div class="moon-badge">🌗</div>
+    <div class="day-title"><h3>英雄的河谷</h3><div class="date">DAY 8 · 10.2 周五 · 那拉提 → 乔尔玛 → 唐布拉</div></div>
+    <div class="drive"><b>山路 3h</b>边走边玩</div>
+  </div>
+  <div class="day-body">
+    <p>今日核心：<b>S315 百里画廊</b>——不一口气直接穿完独库，把最好看的一段留给慢慢开。</p>
+    <div class="tl">
+      <div class="trow"><div class="tt">09:00</div><div class="ta">那拉提出发，沿 G218 抵达乔尔玛<span class="sub">镇上加满油 · S315 加油站稀少 + 信号盲区 · 离线地图已备</span></div></div>
+      <div class="trow hl"><div class="tt">10:30</div><div class="ta"><b>乔尔玛烈士陵园</b>（停 20 分钟）<span class="sub">给孩子讲独库筑路的士兵，许多人和爸爸妈妈现在一样年轻 · 不煽情，就讲事实——孩子会自己安静下来</span></div></div>
+      <div class="trow hl"><div class="tt">11:00–17:00</div><div class="ta"><b>S315 百里画廊</b>沿喀什河谷自驾，随停随玩<span class="sub">✅ 喀什河 S 弯观景台 · 河谷河滩玩水捡石 · 小华山观景台（停车拍照，不用爬山）</span></div></div>
+      <div class="trow"><div class="tt">—</div><div class="ta">仙女湖骑马进沟时间长，<b>本次不深度进去</b></div></div>
+      <div class="trow"><div class="tt">傍晚</div><div class="ta">抵达唐布拉步道入口一带，入住</div></div>
+      <div class="trow hl"><div class="tt">21:30</div><div class="ta"><b>找银河</b>（任务⑦）<span class="sub">今晚月亮升得很晚——全程唯一观星窗口 🌌</span></div></div>
+    </div>
+    <div class="task"><b>任务⑦ · 认星</b>——认出一个星座就算成功（北斗最稳）。</div>
+  </div>
+  <div class="hotel">🏨 宿 <b>唐布拉 · 舒泊瑞斯</b><span class="bk">（之之携程）</span></div>
+</article>
+
+<!-- ═══════════ 第四章 ═══════════ -->
+<div class="chapter"><span>第四章 · 天路</span><small>CHAPTER IV · THE SKY ROAD</small></div>
+
+<!-- DAY 9 -->
+<article class="day">
+  <div class="day-head">
+    <div class="moon-badge">🌗</div>
+    <div class="day-title"><h3>翻越天山</h3><div class="date">DAY 9 · 10.3 周六 · 唐布拉 → 独库北段 → 奎屯</div></div>
+    <div class="drive"><b>3.2h</b>乔尔玛 → 独山子</div>
+  </div>
+  <div class="day-body">
+    <div class="warn"><b>⚠ 出发前早上必查</b>【阿勒泰交警】公众号实时路况（同查「独库公路」小程序双确认）——<b>下雪封路立刻改 G218 国道回奎屯</b>，不赌。</div>
+    <div class="plans">
+      <div class="plan"><div class="k">A</div><div><b>通车</b>：早上从唐布拉回乔尔玛，驶入独库公路北段。沿途停靠<b>天瀑、哈希勒根达坂观景台</b>，看雪山松林峡谷，随走随停拍照。</div></div>
+      <div class="plan"><div class="k">B</div><div><b>封路</b>：改 G218 国道返回奎屯，行程顺延不打乱。</div></div>
+    </div>
+    <div class="tl">
+      <div class="trow"><div class="tt">08:00</div><div class="ta">查路况 → 定预案 → 晕车贴提前半小时贴</div></div>
+      <div class="trow hl"><div class="tt">09:00</div><div class="ta"><b>驶入独库北段</b>（预案 A）<span class="sub">天瀑 · 发卡弯 · 任务⑧开始计数</span></div></div>
+      <div class="trow hl"><div class="tt">12:00</div><div class="ta"><b>哈希勒根达坂观景台</b>（下车 5 分钟）<span class="sub">"你现在站的地方，比 3 个东方明珠叠起来还高。"</span></div></div>
+      <div class="trow"><div class="tt">下午</div><div class="ta">抵达独山子短暂休整，开到奎屯入住<span class="sub">今日必须换驾驶员</span></div></div>
+    </div>
+    <div class="task"><b>任务⑧ · 发卡弯竞猜</b>——数发卡弯，猜中者赢今晚的晚餐选择权。</div>
+  </div>
+  <div class="hotel">🏨 宿 <b>奎屯市区 · 亚朵</b><span class="bk">（老王）</span></div>
+</article>
+
+<!-- DAY 10 -->
+<article class="day">
+  <div class="day-head">
+    <div class="moon-badge">🌗</div>
+    <div class="day-title"><h3>穿过风的走廊</h3><div class="date">DAY 10 · 10.4 周日 · 奎屯 → 吐鲁番</div></div>
+    <div class="drive"><b>5h</b>435km</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="trow"><div class="tt">09:00</div><div class="ta">早上出发（国庆返程注意路况）· 双驾驶员轮换</div></div>
+      <div class="trow hl"><div class="tt">午后</div><div class="ta"><b>吐鲁番盆地"两季实验"</b><span class="sub">一小时内，窗外从雪山变成戈壁，温度计从 15°C 爬到 27°C · 任务⑨</span></div></div>
+      <div class="trow"><div class="tt">14:00</div><div class="ta">抵达吐鲁番，<b>酒店午休</b>——避开最晒的时段</div></div>
+      <div class="trow hl"><div class="tt">傍晚</div><div class="ta"><b>坎儿井民俗园</b><span class="sub">古代地下水利工程 · 科普游玩 · 洞内凉爽</span></div></div>
+      <div class="trow hl"><div class="tt">日落前</div><div class="ta"><b>交河故城</b><span class="sub">夕阳下游览千年古城——告诉孩子：两千年前，月亮也照过这座城</span></div></div>
+    </div>
+    <div class="task"><b>任务⑨ · 一天穿越两个季节</b>——记录车外温度变化，手册上画出温度曲线。</div>
+  </div>
+  <div class="hotel">🏨 宿 <b>吐鲁番 · 文化西路亚朵</b><span class="bk">（老王 · 连住 2 晚）</span></div>
+</article>
+
+<!-- DAY 11 -->
+<article class="day">
+  <div class="day-head">
+    <div class="moon-badge">🌗</div>
+    <div class="day-title"><h3>火焰与沙海</h3><div class="date">DAY 11 · 10.5 周一 · 吐鲁番</div></div>
+    <div class="drive"><b>库木塔格</b>100km · 1.5h</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="trow"><div class="tt">上午</div><div class="ta"><b>葡萄沟</b><span class="sub">葡萄长廊乘凉 · 品尝葡萄瓜果 · 逛维吾尔民居</span></div></div>
+      <div class="trow hl"><div class="tt">午前</div><div class="ta"><b>火焰山</b>打卡地标拍照（短暂停留，避开正午暴晒）<span class="sub">金箍棒温度计 · 孙悟空借芭蕉扇的地方 · BGM 切《西游记》</span></div></div>
+      <div class="trow hl"><div class="tt">午后</div><div class="ta"><b>库木塔格沙漠</b>（100km · 1.5h 车程）<span class="sub">滑沙 · 光脚跑沙丘 · 任务⑩装一瓶沙</span></div></div>
+      <div class="trow"><div class="tt">晚上</div><div class="ta">回吐鲁番市区，晚饭吃拌面</div></div>
+    </div>
+    <div class="meta-pills"><span class="pill tbd">葡萄沟【待定】：当天看孩子状态与鲜果季情况临场定，跳过则直接火焰山 + 沙漠</span></div>
+    <div class="task"><b>任务⑩ · 装一瓶沙</b>——至此四元素集齐。</div>
+    <div class="elements">
+      <div class="el"><div class="e-ico">💧</div><h4>湖的水汽</h4><p>赛湖蓝石头 · Day3</p></div>
+      <div class="el"><div class="e-ico">🍂</div><h4>林的叶</h4><p>库尔德宁云杉谷 · Day6</p></div>
+      <div class="el"><div class="e-ico">🌌</div><h4>山的风</h4><p>星空页 · Day8</p></div>
+      <div class="el"><div class="e-ico">⏳</div><h4>漠的沙</h4><p>库木塔格 · Day11</p></div>
+    </div>
+  </div>
+  <div class="hotel">🏨 宿 <b>吐鲁番 · 文化西路亚朵</b><span class="bk">（老王）</span></div>
+</article>
+
+<!-- ═══════════ 终章 ═══════════ -->
+<div class="chapter"><span>终章 · 归来</span><small>FINALE · THE COURIER RETURNS</small></div>
+
+<!-- DAY 12 -->
+<article class="day">
+  <div class="day-head">
+    <div class="moon-badge">🌗</div>
+    <div class="day-title"><h3>信使归来</h3><div class="date">DAY 12 · 10.6 周二 · 吐鲁番 → 乌鲁木齐 → 北京</div></div>
+    <div class="drive"><b>CA1294</b>20:20 — 00:10</div>
+  </div>
+  <div class="day-body">
+    <div class="tl">
+      <div class="trow"><div class="tt">08:00</div><div class="ta">一早出发：吐鲁番 → 乌鲁木齐<span class="sub">驾车 2.5h</span></div></div>
+      <div class="trow hl"><div class="tt">下午</div><div class="ta"><b>新疆博物馆</b>（预约场次）<span class="sub">楼兰"睡了三千八百年的姑娘"——讲成"她也在等月亮"就不可怕了</span></div></div>
+      <div class="trow"><div class="tt">16:30</div><div class="ta">临行前采购 → 还车 → 机场</div></div>
+      <div class="trow hl"><div class="tt">安检前</div><div class="ta"><b>第二封月亮来信</b>出现在孩子背包里（见下）</div></div>
+      <div class="trow"><div class="tt">20:20</div><div class="ta"><b>国航 CA1294</b> 起飞<span class="sub">00:10 落地北京首都 T3</span></div></div>
+    </div>
+    <div class="letter"><b>✉ 第二封月亮来信：</b><br>"信使，任务完成。我已瘦成半个，但我会再圆起来——等我圆到第 X 次的时候，你们会不会去看喀什的月亮？——月亮"</div>
+    <p>手册末页贴最后一枚半月贴纸，全家签名。<b>这本手册，是这趟旅行真正的行李。</b></p>
+  </div>
+  <div class="hotel">✈️ 返程 <b>任务完成</b></div>
+</article>
+
+<!-- ═══════════ 硬件手册 ═══════════ -->
+<section>
+  <div class="sec-head"><span class="sec-num">附 · 硬件手册</span><h2>不变的<em>铁律</em></h2></div>
+  <div class="two-col">
+    <div class="panel">
+      <h3>车 · 座 · 油</h3>
+      <ul>
+        <li><b>机场取车/还车</b>，验车三件事：ISOFIX 接口 · 备胎 · 双驾驶员登记</li>
+        <li>安全座椅自带，长途日（Day9 / Day10）<b>强制换驾驶员</b></li>
+        <li><b>见加油站就加满</b>（只允许司机进站，提前分工）；S315 沿线加油站稀少 + 信号盲区，离线地图提前下好</li>
+        <li>Day2 奎屯超市一次性补齐水和零食，后半程伊宁再补一次</li>
+        <li>天气两极：赛湖/库尔德宁/唐布拉清晨 <b>0~5°C</b>，吐鲁番白天 <b>27°C+</b>——羽绒服和短袖都带</li>
+      </ul>
+    </div>
+    <div class="panel todo">
+      <h3>行前清单</h3>
+      <ul>
+        <li><b>① 机票已定</b>：9.25 海航 HU7245（首都 14:15 → 乌市 18:30）｜10.6 国航 CA1294（乌市 20:20 → 首都 T3 00:10）</li>
+        <li><b>② 全程住宿已定</b>：乌市百丽 → 奎屯亚朵 → 赛湖城际 → 伊宁亚朵×2 → 库尔德宁那一叶 → 那拉提拈花湾哈茵赛 → 唐布拉舒泊瑞斯 → 奎屯亚朵 → 吐鲁番文化西路亚朵×2</li>
+        <li><b>③ 9.29 抢</b>新疆博物馆预约（提前 7 天放票，抢 10.6 场次）</li>
+        <li><b>④ Day9 前晚 + 当早</b>：查【阿勒泰交警】公众号独库路况，封路走 G218</li>
+        <li><b>⑤ 出发前一晚</b>：写好两封月亮来信 · 装好手册和徽章 · 下载离线地图和三张歌单</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ WHY ═══════════ -->
+<section>
+  <div class="why">
+    <h3>为什么这版能成</h3>
+    <p>行程一米都没有多开——<b>路线、里程、住宿、预案与订好的行程表完全一致，落地性零损失。</b>变的只是叙事：</p>
+    <p><b>月相是真的天文</b>，湖水只进不出是<b>真的地理</b>，独库是<b>真的历史</b>，一天两季是<b>真的气候</b>。</p>
+    <p>你不需要给孩子编任何东西，只需要在正确的时刻，<b>把真实世界指给他们看。</b></p>
+  </div>
+</section>
+
+<!-- ═══════════ ENDING ═══════════ -->
+<div class="ending">
+  <div class="moons">🌕 → 🌗</div>
+  <h3>十二天后，别的孩子说「我去了新疆」，<br>你们的孩子会说——<br><span class="g">「我把月亮送回了家。」</span></h3>
+  <p>满月为始，半月为证。</p>
+</div>
+
+</div>
+
+<footer>
+  <div class="brand">追月亮的人</div>
+  <div>MOON COURIER · 2026.09.25 — 10.06 · 北京 ⇄ 乌鲁木齐 · 北疆环线</div>
+  <div style="margin-top:8px;opacity:.6">独库通行、景区区间车与场馆预约情况，以出行当日官方公告与电话确认为准</div>
+</footer>
+
+<script>
+(function initMap(){
+  if (typeof L === 'undefined') {
+    var f = document.getElementById('mapFallback');
+    var m = document.getElementById('tripmap');
+    if (f) f.style.display = 'block';
+    if (m) m.style.display = 'none';
+    return;
+  }
+
+  var map = L.map('tripmap', { scrollWheelZoom: false, attributionControl: true });
+
+  L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
+    subdomains: ['1','2','3','4'],
+    maxZoom: 18,
+    attribution: '&copy; 高德地图'
+  }).addTo(map);
+
+  // [lat, lng, 名称, Day标, 是否过夜, 弹窗]
+  var stops = [
+    [43.825, 87.616, '乌鲁木齐', 'D1',  true,  '<b>D1 · 9.25 中秋</b><br>HU7245 落地 · 大巴扎和田二街逛吃<br>满月发手册 🌕 宿百丽<br><b>D12</b> 回环：新疆博物馆 · CA1294 返京'],
+    [44.240, 84.800, '独山子大峡谷', 'D2', false, '<b>D2 午后</b><br>悬空观景台 · 悬崖咖啡店 ☕'],
+    [44.427, 84.904, '奎屯', 'D2', true, '<b>D2 · 9.26 宿亚朵</b><br>午饭入住 · 超市补给（补给官上岗）<br><b>D9 · 10.3</b> 独库下山再宿一晚'],
+    [44.598, 81.333, '赛里木湖', 'D3', true, '<b>D3 · 9.27 宿城际</b><br>月亮湾 · 点将台 · 湖边月光路<br>全程高光之夜 🌕'],
+    [43.909, 81.277, '伊宁', 'D4', true, '<b>D4-5 · 9.28-29 宿亚朵×2</b><br>喀赞其蓝色小镇（喂鸽子·马车）<br>六星街 · 伊犁河大桥日落<br>第一封月亮来信 ✉'],
+    [43.205, 82.530, '库尔德宁', 'D6', true, '<b>D6 · 9.30 宿景区内·那一叶</b><br>私家车进景区 中沟进东沟出<br>十里画廊 · 蜂香驿站 · 喀峰大本营<br>今晚睡在云杉林里 🌲'],
+    [43.318, 84.005, '那拉提', 'D7', true, '<b>D7 · 10.1 宿拈花湾哈茵赛</b><br>下午河谷草原：白桦林 + 雪山<br>学"热合买提"'],
+    [43.580, 84.395, '乔尔玛', 'D8', false, '<b>D8 途经</b><br>烈士陵园停 20 分钟<br>"用命修出来的路"'],
+    [43.830, 83.550, '唐布拉', 'D8', true, '<b>D8 · 10.2 宿舒泊瑞斯</b><br>S315 百里画廊 · 喀什河 S 弯<br>全程唯一观星窗口 🌌'],
+    [43.950, 84.420, '哈希勒根达坂', 'D9', false, '<b>D9 途经（预案 A）</b><br>独库北段 · 天瀑 · 达坂观景台<br>发卡弯竞猜'],
+    [42.951, 89.190, '吐鲁番', 'D10', true, '<b>D10-11 · 10.4-5 宿文化西路亚朵×2</b><br>两季实验（15°C→27°C）<br>坎儿井民俗园'],
+    [42.956, 89.066, '交河故城', 'D10', false, '<b>D10 日落前</b><br>夕阳下的千年古城<br>"两千年前，月亮也照过这座城"'],
+    [42.996, 89.303, '葡萄沟', 'D11', false, '<b>D11 上午【待定】</b><br>葡萄长廊乘凉 · 品瓜果 · 维吾尔民居'],
+    [42.940, 89.580, '火焰山', 'D11', false, '<b>D11 午前</b><br>金箍棒温度计 · BGM《西游记》<br>避开正午暴晒'],
+    [42.870, 90.230, '库木塔格沙漠', 'D11', false, '<b>D11 午后</b><br>滑沙 · 光脚跑沙丘 · 装一瓶沙 ⏳<br>四元素集齐']
+  ];
+
+  // 行车路线（按实际走向，含 D9 独库回奎屯、D12 回乌市的回环）
+  var route = [
+    stops[0],  // 乌鲁木齐 D1
+    stops[2],  // 奎屯 D2
+    stops[1],  // 独山子大峡谷（午后往返）
+    stops[2],  // 回奎屯
+    stops[3],  // 赛里木湖 D3
+    stops[4],  // 伊宁 D4-5
+    stops[5],  // 库尔德宁 D6
+    stops[6],  // 那拉提 D7
+    stops[7],  // 乔尔玛 D8
+    stops[8],  // 唐布拉 D8 宿
+    stops[7],  // D9 回乔尔玛
+    stops[9],  // 哈希勒根达坂
+    stops[1],  // 独山子
+    stops[2],  // 奎屯 D9 宿
+    stops[0],  // 路过乌鲁木齐
+    stops[10], // 吐鲁番 D10
+    stops[11], // 交河故城
+    stops[10], // 回吐鲁番
+    stops[12], // 葡萄沟 D11
+    stops[13], // 火焰山
+    stops[14], // 库木塔格
+    stops[10], // 回吐鲁番
+    stops[0]   // D12 回乌鲁木齐
+  ].map(function(s){ return [s[0], s[1]]; });
+
+  L.polyline(route, {
+    color: '#e0a458', weight: 2.5, opacity: .85, dashArray: '6 8',
+    lineJoin: 'round'
+  }).addTo(map);
+
+  stops.forEach(function(s){
+    var icon = L.divIcon({
+      className: '',
+      html: '<div class="day-marker' + (s[4] ? '' : ' stay') + '">' + s[3] + '</div>',
+      iconSize: [30, 30],
+      iconAnchor: [15, 15],
+      popupAnchor: [0, -16]
+    });
+    L.marker([s[0], s[1]], { icon: icon, title: s[2] })
+      .addTo(map)
+      .bindPopup(s[5]);
+  });
+
+  map.fitBounds(L.latLngBounds(route).pad(0.12));
+})();
+</script>
+
+</body>
+</html>
