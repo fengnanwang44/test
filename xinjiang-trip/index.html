@@ -288,8 +288,8 @@ h2 em{font-style:normal;color:var(--gold);}
   font-family:var(--mono);font-size:12px;color:var(--silver-dim);letter-spacing:.1em;
 }
 .drive b{display:block;color:var(--silver);font-size:14px;}
-.day-body{padding:22px 30px 6px;}
-.day-body p{font-size:15px;color:var(--silver);margin-bottom:14px;}
+.day-body{padding:26px 30px 8px;}
+.day-body p{font-size:15px;color:var(--silver);margin-bottom:16px;line-height:1.95;}
 .day-body p b{color:var(--moon);font-weight:600;}
 .day-body p .hi{color:var(--gold);font-weight:600;}
 
@@ -297,7 +297,7 @@ h2 em{font-style:normal;color:var(--gold);}
 .tl{margin:4px 0 16px;}
 .trow{
   display:grid;grid-template-columns:96px 1fr;gap:16px;
-  position:relative;padding:10px 0;
+  position:relative;padding:12px 0;
 }
 .trow:not(:last-child)::before{
   content:"";position:absolute;left:112px;top:30px;bottom:-10px;
@@ -316,39 +316,48 @@ h2 em{font-style:normal;color:var(--gold);}
 .trow .ta{padding-left:26px;font-size:14.5px;color:var(--silver);}
 .trow .ta b{color:var(--moon);font-weight:600;}
 .trow.hl .ta b{color:var(--gold);}
-.trow .sub{display:block;font-size:12.5px;color:var(--silver-dim);margin-top:2px;}
+.trow .sub{display:block;font-size:12.5px;color:var(--silver-dim);margin-top:4px;line-height:1.8;max-width:56ch;}
 
 .task{
-  margin:16px 0;border-left:3px solid var(--gold);
+  margin:20px 0;border-left:3px solid var(--gold);
   background:rgba(224,164,88,.07);border-radius:0 12px 12px 0;
-  padding:13px 20px;font-size:14.5px;color:var(--moon-dim);
+  padding:16px 22px;font-size:14.5px;color:var(--moon-dim);
+  line-height:1.95;
 }
 .task b{color:var(--gold);font-family:var(--serif);}
 .letter{
-  margin:16px 0;border:1px dashed rgba(224,164,88,.5);
+  margin:20px 0;border:1px dashed rgba(224,164,88,.5);
   background:rgba(242,234,210,.05);border-radius:12px;
-  padding:15px 20px;font-size:14.5px;color:var(--moon-dim);
-  font-family:var(--serif);
+  padding:18px 22px;font-size:14.5px;color:var(--moon-dim);
+  font-family:var(--serif);line-height:2;
 }
 .letter b{color:var(--ember);}
 .night-note{
-  margin:16px 0;border-left:3px solid var(--silver);
+  margin:20px 0;border-left:3px solid var(--silver);
   background:rgba(174,186,214,.07);border-radius:0 12px 12px 0;
-  padding:13px 20px;font-size:14.5px;color:var(--silver);
+  padding:16px 22px;font-size:14.5px;color:var(--silver);
+  line-height:1.95;
 }
 .night-note b{color:var(--moon);}
 .warn{
-  margin:16px 0;border-left:3px solid var(--ember);
+  margin:20px 0;border-left:3px solid var(--ember);
   background:rgba(217,111,78,.09);border-radius:0 12px 12px 0;
-  padding:13px 20px;font-size:14px;color:var(--moon-dim);
+  padding:16px 22px;font-size:14px;color:var(--moon-dim);
+  line-height:1.95;
 }
 .warn b{color:var(--ember);}
+.warn .wt{
+  display:block;font-family:var(--serif);font-size:15px;font-weight:700;
+  color:var(--ember);margin-bottom:8px;letter-spacing:.02em;
+}
+.warn .wline{display:block;margin-top:6px;}
+.warn .wline b{color:var(--moon);}
 .hotel{
   display:flex;align-items:center;gap:10px;
-  margin:6px 30px 24px;padding-top:14px;
+  margin:10px 30px 26px;padding-top:16px;
   border-top:1px dashed var(--line);
   font-family:var(--mono);font-size:13px;color:var(--silver-dim);letter-spacing:.12em;
-  flex-wrap:wrap;
+  flex-wrap:wrap;line-height:1.9;
 }
 .hotel b{color:var(--jade);font-weight:500;}
 .hotel .bk{font-size:11.5px;color:var(--silver-dim);opacity:.85;}
@@ -374,10 +383,31 @@ h2 em{font-style:normal;color:var(--gold);}
 .plan b{color:var(--moon);}
 .plan.scenic{border-color:rgba(127,181,154,.5);background:rgba(127,181,154,.06);}
 .plan.scenic .k{color:var(--jade);}
-.plan .sub2{display:block;font-size:12.5px;color:var(--silver-dim);margin-top:4px;line-height:1.7;}
+.plan .pt{
+  display:block;font-family:var(--serif);font-size:15px;font-weight:700;
+  color:var(--moon);margin-bottom:8px;
+}
+.plan.scenic .pt{color:var(--jade);}
+.plan .steps{list-style:none;margin:4px 0 2px;}
+.plan .steps li{
+  position:relative;padding:5px 0 5px 22px;
+  font-size:13.5px;color:var(--silver);line-height:1.85;
+}
+.plan .steps li::before{
+  content:"→";position:absolute;left:0;top:5px;
+  color:var(--gold);font-family:var(--mono);font-size:12px;
+}
+.plan.scenic .steps li::before{color:var(--jade);}
+.plan .steps li b{color:var(--moon);}
+.plan .bonus{
+  margin-top:10px;padding:10px 14px;border-radius:10px;
+  background:rgba(255,255,255,.03);border:1px dashed rgba(127,181,154,.4);
+  font-size:12.5px;color:var(--silver-dim);line-height:1.85;
+}
+.plan .bonus b{color:var(--jade);}
 
 /* ============ 门票总表 ============ */
-.tix-wrap{overflow-x:auto;background:var(--card-solid);border:1px solid var(--line);border-radius:16px;padding:18px 22px;}
+.tix-wrap{overflow-x:auto;background:var(--card-solid);border:1px solid var(--line);border-radius:16px;padding:24px 28px;}
 .tix{width:100%;border-collapse:collapse;margin:6px 0 10px;font-size:13.5px;}
 .tix th{
   font-family:var(--mono);font-size:11.5px;letter-spacing:.15em;color:var(--gold);
@@ -385,8 +415,8 @@ h2 em{font-style:normal;color:var(--gold);}
   white-space:nowrap;
 }
 .tix td{
-  padding:10px 12px;border-bottom:1px dashed rgba(174,186,214,.14);
-  color:var(--silver);vertical-align:top;line-height:1.6;
+  padding:13px 12px;border-bottom:1px dashed rgba(174,186,214,.14);
+  color:var(--silver);vertical-align:top;line-height:1.8;
 }
 .tix td b{color:var(--moon);font-weight:600;}
 .tix td .fee{color:var(--gold);font-family:var(--mono);white-space:nowrap;}
@@ -397,11 +427,11 @@ h2 em{font-style:normal;color:var(--gold);}
 @media(max-width:640px){.tix{min-width:660px;}}
 
 /* 抢票时间线 */
-.grab{display:grid;gap:12px;margin-top:22px;}
+.grab{display:grid;gap:14px;margin-top:28px;}
 .grab-item{
-  display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:start;
+  display:grid;grid-template-columns:110px 1fr;gap:18px;align-items:start;
   border:1px solid var(--line);border-radius:14px;
-  background:var(--card);padding:15px 20px;
+  background:var(--card);padding:18px 22px;
 }
 .grab-item.hot{border-color:rgba(217,111,78,.5);background:rgba(217,111,78,.06);}
 .grab-item .gd{
@@ -409,7 +439,7 @@ h2 em{font-style:normal;color:var(--gold);}
   letter-spacing:.08em;padding-top:2px;white-space:nowrap;
 }
 .grab-item.hot .gd{color:var(--ember);font-weight:700;}
-.grab-item .gt{font-size:14px;color:var(--silver);}
+.grab-item .gt{font-size:14px;color:var(--silver);line-height:1.9;}
 .grab-item .gt b{color:var(--moon);}
 
 /* ============ 元素收集 ============ */
@@ -439,8 +469,9 @@ h2 em{font-style:normal;color:var(--gold);}
 .panel h3::before{content:"✦";color:var(--gold);font-size:14px;}
 .panel li{
   list-style:none;font-size:14px;color:var(--silver);
-  padding:8px 0 8px 24px;position:relative;
+  padding:10px 0 10px 24px;position:relative;
   border-bottom:1px dashed rgba(174,186,214,.12);
+  line-height:1.9;
 }
 .panel li:last-child{border-bottom:none;}
 .panel li::before{
@@ -713,7 +744,11 @@ footer .brand{
     <div class="drive"><b>3h</b>240km</div>
   </div>
   <div class="day-body">
-    <div class="warn"><b>⚠ 10.1 错峰战术：</b>今天是国庆第一天，那拉提入园高峰在 10:00–14:00（伊宁与独库方向的自驾大军同时涌到）。<b>今天不进园</b>——把河谷草原留给明早开园第一批，人流少一半以上。住景区内民宿就是为这一手准备的。</div>
+    <div class="warn">
+      <span class="wt">⚠ 10.1 错峰战术：今天不进园</span>
+      <span class="wline">国庆第一天，那拉提入园高峰 <b>10:00–14:00</b>（伊宁与独库方向的自驾大军同时涌到）。</span>
+      <span class="wline">把河谷草原留给<b>明早开园第一批</b>，人流少一半以上——住景区内民宿就是为这一手准备的。</span>
+    </div>
     <div class="tl">
       <div class="trow"><div class="tt">09:00 后</div><div class="ta">库尔德宁出发<span class="sub">山路边走边看，不赶</span></div></div>
       <div class="trow"><div class="tt">12:00</div><div class="ta">抵达那拉提镇，午饭 + 入住</div></div>
@@ -761,11 +796,40 @@ footer .brand{
     <div class="drive"><b>3.2h</b>乔尔玛 → 独山子</div>
   </div>
   <div class="day-body">
-    <div class="warn"><b>⚠ 前晚 + 当早 7:30 必查路况</b>：「独库公路」官方小程序 + 【新疆交警】公众号，两个来源交叉确认。（注意：<b>不是"阿勒泰交警"</b>——阿勒泰在北疆另一头，跟独库无关，查错等于没查。）10 月初达坂一场夜雪就临时封闭，按往年经验 10.3 通行概率约六成——<b>心态上"走成是赚到"，封路不是损失，是触发另一条彩蛋线。</b></div>
+    <div class="warn">
+      <span class="wt">⚠ 前晚 + 当早 7:30 必查路况</span>
+      <span class="wline">查<b>「独库公路」官方小程序</b> + <b>【新疆交警】公众号</b>，两个来源交叉确认。</span>
+      <span class="wline">注意：<b>不是"阿勒泰交警"</b>——阿勒泰在北疆另一头，跟独库无关，查错等于没查。</span>
+      <span class="wline">10 月初达坂一场夜雪就临时封闭，往年经验 10.3 通行概率约六成——心态上<b>"走成是赚到"</b>，封路不是损失，是触发另一条彩蛋线。</span>
+    </div>
     <div class="plans">
-      <div class="plan"><div class="k">A</div><div><b>独库通车</b>：8:00 前从唐布拉出发，回乔尔玛驶入独库北段。沿途停靠<b>天瀑、哈希勒根达坂观景台</b>（海拔约 3400m）。<b>纪律：中午前过达坂，15:00 前必须驶出独山子端</b>（10.3 下午出口最易堵死），当晚宿奎屯。</div></div>
-      <div class="plan scenic"><div class="k">B</div><div><b>独库封、G218 正常（最常见的封法）→ 巩乃斯风景线</b>：不回头，从乔尔玛沿 G218 向东南穿天山——<b>巩乃斯河谷金秋</b>（雪岭云杉+白桦分层，"独库的温柔版"）→ 班禅沟/阿尔先温泉沟路边短停 → 翻天山下阿拉沟，一天看完云杉→草甸→戈壁的植被渐变（任务⑨提前开演）→ 当晚宿<b>库尔勒</b>（孔雀河夜景顺带逛）。次日库尔勒→托克逊→吐鲁番仅约 4h，比原路还短，D10 起与主线完全并轨。<span class="sub">✦ 彩蛋：中午前过巩乃斯且 G217 南段开放，可岔进<b>巴音布鲁克</b>看开都河九曲日落（+1h 车程，海拔 2500m 傍晚很冷，当 bonus 不当目标）。✦ 若 10.2 晚天气预报明显要下雪：当晚就订库尔勒酒店 + 跟老王打招呼退奎屯，别等早上手忙脚乱。</span></div></div>
-      <div class="plan"><div class="k">C</div><div><b>大范围降雪、G218 山区段也管制（小概率）</b>：原路 G218 向西回伊宁方向转 G30 返奎屯，保安全，不赌。行程顺延不打乱。</div></div>
+      <div class="plan"><div class="k">A</div><div>
+        <span class="pt">独库通车 → 翻达坂</span>
+        <ul class="steps">
+          <li><b>8:00 前</b>从唐布拉出发，回乔尔玛驶入独库北段</li>
+          <li>沿途停靠<b>天瀑 · 哈希勒根达坂观景台</b>（海拔约 3400m）</li>
+          <li>纪律：<b>中午前过达坂，15:00 前驶出独山子端</b>（10.3 下午出口最易堵死）</li>
+          <li>当晚宿奎屯</li>
+        </ul>
+      </div></div>
+      <div class="plan scenic"><div class="k">B</div><div>
+        <span class="pt">独库封、G218 正常（最常见）→ 巩乃斯风景线，不回头</span>
+        <ul class="steps">
+          <li>从乔尔玛沿 G218 向东南穿天山，进<b>巩乃斯河谷金秋</b><br>雪岭云杉 + 白桦分层，"独库的温柔版"</li>
+          <li><b>班禅沟 / 阿尔先温泉沟</b>路边短停（20 分钟级）</li>
+          <li>翻天山下阿拉沟——一天看完<b>云杉→草甸→戈壁</b>的植被渐变（任务⑨提前开演）</li>
+          <li>当晚宿<b>库尔勒</b>，孔雀河夜景顺带逛</li>
+          <li>次日库尔勒→托克逊→吐鲁番仅约 <b>4h，比原路还短</b>，D10 起与主线完全并轨</li>
+        </ul>
+        <div class="bonus">✦ <b>彩蛋</b>：中午前过巩乃斯且 G217 南段开放，可岔进<b>巴音布鲁克</b>看开都河九曲日落（+1h 车程，海拔 2500m 傍晚很冷，当 bonus 不当目标）。<br>✦ <b>提前手</b>：10.2 晚预报明显要下雪 → 当晚订库尔勒酒店 + 跟老王打招呼退奎屯，别等早上手忙脚乱。</div>
+      </div></div>
+      <div class="plan"><div class="k">C</div><div>
+        <span class="pt">大范围降雪、G218 山区段也管制（小概率）</span>
+        <ul class="steps">
+          <li>原路 G218 向西回伊宁方向，转 G30 返奎屯</li>
+          <li>保安全，不赌；行程顺延不打乱</li>
+        </ul>
+      </div></div>
     </div>
     <div class="tl">
       <div class="trow"><div class="tt">07:30</div><div class="ta">查路况 → 定预案 → 晕车贴提前半小时贴</div></div>
@@ -836,7 +900,12 @@ footer .brand{
     <div class="drive"><b>CA1294</b>20:20 — 00:10</div>
   </div>
   <div class="day-body">
-    <div class="warn"><b>⚠ 返程潮日，链条前压：</b>10.6 是国庆返程第一波，吐鲁番→乌市的 G30 后沟—乌拉泊段是知名堵点，返程车流 10 点后起量——所以 <b>8:00 前必须发车</b>；<b>16:00 是市区出发去机场的硬截止</b>；还车留足 1.5h（国庆验车排队）。采购压缩到博物馆周边或机场解决。</div>
+    <div class="warn">
+      <span class="wt">⚠ 返程潮日，链条前压</span>
+      <span class="wline">10.6 是国庆返程第一波，吐鲁番→乌市的 <b>G30 后沟—乌拉泊段</b>是知名堵点，返程车流 10 点后起量。</span>
+      <span class="wline"><b>8:00 前必须发车</b>｜<b>16:00 是去机场的硬截止</b>｜还车留足 1.5h（国庆验车排队）。</span>
+      <span class="wline">采购压缩到博物馆周边或机场解决。</span>
+    </div>
     <div class="tl">
       <div class="trow hl"><div class="tt">07:45</div><div class="ta"><b>发车</b>：吐鲁番 → 乌鲁木齐<span class="sub">驾车 2.5h · 抢在返程潮起量之前 · 10:30 前进乌市</span></div></div>
       <div class="trow hl"><div class="tt">11:00–14:00</div><div class="ta"><b>新疆博物馆</b>（约上午末/正午场）<span class="sub">楼兰"睡了三千八百年的姑娘"——讲成"她也在等月亮"就不可怕了 · 10.6 周二不撞周一闭馆 ✓</span></div></div>
