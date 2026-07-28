@@ -194,6 +194,7 @@ h2 em{font-style:normal;color:var(--gold);}
   box-shadow:0 0 12px rgba(224,164,88,.55);
 }
 .day-marker.stay{border-color:var(--silver);color:var(--silver);box-shadow:0 0 12px rgba(174,186,214,.45);}
+.day-marker.planb{border-color:var(--jade);color:var(--jade);box-shadow:0 0 12px rgba(127,181,154,.45);border-style:dashed;}
 .leaflet-popup-content-wrapper{
   background:var(--card-solid);color:var(--moon);
   border:1px solid var(--line-gold);border-radius:12px;
@@ -371,6 +372,45 @@ h2 em{font-style:normal;color:var(--gold);}
   text-align:center;line-height:1.2;
 }
 .plan b{color:var(--moon);}
+.plan.scenic{border-color:rgba(127,181,154,.5);background:rgba(127,181,154,.06);}
+.plan.scenic .k{color:var(--jade);}
+.plan .sub2{display:block;font-size:12.5px;color:var(--silver-dim);margin-top:4px;line-height:1.7;}
+
+/* ============ 门票总表 ============ */
+.tix-wrap{overflow-x:auto;background:var(--card-solid);border:1px solid var(--line);border-radius:16px;padding:18px 22px;}
+.tix{width:100%;border-collapse:collapse;margin:6px 0 10px;font-size:13.5px;}
+.tix th{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.15em;color:var(--gold);
+  text-align:left;padding:10px 12px;border-bottom:1px solid var(--line-gold);
+  white-space:nowrap;
+}
+.tix td{
+  padding:10px 12px;border-bottom:1px dashed rgba(174,186,214,.14);
+  color:var(--silver);vertical-align:top;line-height:1.6;
+}
+.tix td b{color:var(--moon);font-weight:600;}
+.tix td .fee{color:var(--gold);font-family:var(--mono);white-space:nowrap;}
+.tix td .free{color:var(--jade);font-family:var(--mono);}
+.tix td .must{color:var(--ember);font-weight:700;}
+.tix tr:last-child td{border-bottom:none;}
+.tix-note{font-size:12.5px;color:var(--silver-dim);margin-top:10px;font-family:var(--serif);}
+@media(max-width:640px){.tix{min-width:660px;}}
+
+/* 抢票时间线 */
+.grab{display:grid;gap:12px;margin-top:22px;}
+.grab-item{
+  display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:start;
+  border:1px solid var(--line);border-radius:14px;
+  background:var(--card);padding:15px 20px;
+}
+.grab-item.hot{border-color:rgba(217,111,78,.5);background:rgba(217,111,78,.06);}
+.grab-item .gd{
+  font-family:var(--mono);font-size:13px;color:var(--gold);
+  letter-spacing:.08em;padding-top:2px;white-space:nowrap;
+}
+.grab-item.hot .gd{color:var(--ember);font-weight:700;}
+.grab-item .gt{font-size:14px;color:var(--silver);}
+.grab-item .gt b{color:var(--moon);}
 
 /* ============ 元素收集 ============ */
 .elements{
@@ -497,13 +537,14 @@ footer .brand{
     <div id="tripmap"></div>
     <div class="map-fallback" id="mapFallback">
       <b>路线一览（地图加载失败时的文字版）：</b><br>
-      乌鲁木齐 →(D2) 奎屯 · 独山子大峡谷 →(D3) 赛里木湖 →(D4) 伊宁·喀赞其/六星街 →(D5 休整) →(D6) 库尔德宁（宿景区内）→(D7) 那拉提河谷草原 →(D8) 乔尔玛 → 唐布拉·S315 百里画廊 →(D9) 独库公路北段·哈希勒根达坂 → 奎屯 →(D10) 吐鲁番 · 坎儿井 · 交河故城 →(D11) 火焰山 · 葡萄沟(待定) · 库木塔格沙漠 →(D12) 乌鲁木齐 · 博物馆 · 还车返程
+      乌鲁木齐 →(D2) 奎屯 · 独山子大峡谷 →(D3) 赛里木湖 →(D4) 伊宁·喀赞其/六星街 →(D5 休整) →(D6) 库尔德宁（宿景区内）→(D7) 那拉提镇（10.1 不进园避高峰）→(D8) 清晨首批进河谷草原 → 乔尔玛 → 唐布拉·S315 百里画廊 →(D9) 独库公路北段·哈希勒根达坂 → 奎屯【封路预案 B：G218 巩乃斯 → 库尔勒】→(D10) 吐鲁番 · 坎儿井 · 交河故城 →(D11) 库木塔格沙漠(上午) · 葡萄沟(正午·待定) · 火焰山(傍晚) →(D12) 乌鲁木齐 · 博物馆 · 还车返程
     </div>
   </div>
   <div class="map-legend">
     <span><i class="lg-dot"></i>过夜地（标注 Day）</span>
     <span><i class="lg-dot s"></i>途经景点</span>
     <span><i class="lg-line"></i>行车路线</span>
+    <span><i class="lg-line" style="border-top-color:#7fb59a;border-top-style:dotted;"></i>预案 B · 独库封路时的巩乃斯风景线</span>
   </div>
 </section>
 
@@ -672,10 +713,11 @@ footer .brand{
     <div class="drive"><b>3h</b>240km</div>
   </div>
   <div class="day-body">
+    <div class="warn"><b>⚠ 10.1 错峰战术：</b>今天是国庆第一天，那拉提入园高峰在 10:00–14:00（伊宁与独库方向的自驾大军同时涌到）。<b>今天不进园</b>——把河谷草原留给明早开园第一批，人流少一半以上。住景区内民宿就是为这一手准备的。</div>
     <div class="tl">
       <div class="trow"><div class="tt">09:00 后</div><div class="ta">库尔德宁出发<span class="sub">山路边走边看，不赶</span></div></div>
       <div class="trow"><div class="tt">12:00</div><div class="ta">抵达那拉提镇，午饭 + 入住</div></div>
-      <div class="trow hl"><div class="tt">下午</div><div class="ta"><b>那拉提河谷草原</b><span class="sub">优先河谷草原：白桦林 + 雪山层次更好 · 步道平缓适合小朋友</span></div></div>
+      <div class="trow hl"><div class="tt">下午</div><div class="ta"><b>民宿周边草原溜达 + 午睡回血</b><span class="sub">不进园不排队 · 把体力和期待都留给明天清晨</span></div></div>
       <div class="trow"><div class="tt">21:00</div><div class="ta">早睡 + 睡前悬念（见下）</div></div>
     </div>
     <div class="task"><b>任务⑥ · 第一句哈萨克语</b>——学会"热合买提"（谢谢），今天在草原上对牧民、回民宿时对主人，用出去。</div>
@@ -692,11 +734,13 @@ footer .brand{
     <div class="drive"><b>山路 3h</b>边走边玩</div>
   </div>
   <div class="day-body">
-    <p>今日核心：<b>S315 百里画廊</b>——不一口气直接穿完独库，把最好看的一段留给慢慢开。</p>
+    <p>今日核心：<b>清晨首批进那拉提 + S315 百里画廊</b>——草原的黄金两小时和画廊的慢驾，一天全要。</p>
     <div class="tl">
-      <div class="trow"><div class="tt">09:00</div><div class="ta">那拉提出发，沿 G218 抵达乔尔玛<span class="sub">镇上加满油 · S315 加油站稀少 + 信号盲区 · 离线地图已备</span></div></div>
-      <div class="trow hl"><div class="tt">10:30</div><div class="ta"><b>乔尔玛烈士陵园</b>（停 20 分钟）<span class="sub">给孩子讲独库筑路的士兵，许多人和爸爸妈妈现在一样年轻 · 不煽情，就讲事实——孩子会自己安静下来</span></div></div>
-      <div class="trow hl"><div class="tt">11:00–17:00</div><div class="ta"><b>S315 百里画廊</b>沿喀什河谷自驾，随停随玩<span class="sub">✅ 喀什河 S 弯观景台 · 河谷河滩玩水捡石 · 小华山观景台（停车拍照，不用爬山）</span></div></div>
+      <div class="trow hl"><div class="tt">开园即进</div><div class="ta"><b>那拉提河谷草原</b>（第一批入园，昨天特意留的）<span class="sub">白桦林 + 雪山晨光层次最好 · 步道平缓适合小朋友 · 10.2 清晨人流比 10.1 少一半</span></div></div>
+      <div class="trow"><div class="tt">11:30</div><div class="ta">出园，午饭 + 镇上<b>加满油</b><span class="sub">S315 加油站稀少 + 信号盲区 · 离线地图已备</span></div></div>
+      <div class="trow"><div class="tt">12:30</div><div class="ta">沿 G218 出发，前往乔尔玛</div></div>
+      <div class="trow hl"><div class="tt">14:00</div><div class="ta"><b>乔尔玛烈士陵园</b>（停 20 分钟）<span class="sub">给孩子讲独库筑路的士兵，许多人和爸爸妈妈现在一样年轻 · 不煽情，就讲事实——孩子会自己安静下来</span></div></div>
+      <div class="trow hl"><div class="tt">14:30–18:00</div><div class="ta"><b>S315 百里画廊</b>沿喀什河谷自驾，随停随玩<span class="sub">✅ 喀什河 S 弯观景台 · 河谷河滩玩水捡石 · 小华山观景台（停车拍照，不用爬山）</span></div></div>
       <div class="trow"><div class="tt">—</div><div class="ta">仙女湖骑马进沟时间长，<b>本次不深度进去</b></div></div>
       <div class="trow"><div class="tt">傍晚</div><div class="ta">抵达唐布拉步道入口一带，入住</div></div>
       <div class="trow hl"><div class="tt">21:30</div><div class="ta"><b>找银河</b>（任务⑦）<span class="sub">今晚月亮升得很晚——全程唯一观星窗口 🌌</span></div></div>
@@ -717,20 +761,21 @@ footer .brand{
     <div class="drive"><b>3.2h</b>乔尔玛 → 独山子</div>
   </div>
   <div class="day-body">
-    <div class="warn"><b>⚠ 出发前早上必查</b>【阿勒泰交警】公众号实时路况（同查「独库公路」小程序双确认）——<b>下雪封路立刻改 G218 国道回奎屯</b>，不赌。</div>
+    <div class="warn"><b>⚠ 前晚 + 当早 7:30 必查路况</b>：「独库公路」官方小程序 + 【新疆交警】公众号，两个来源交叉确认。（注意：<b>不是"阿勒泰交警"</b>——阿勒泰在北疆另一头，跟独库无关，查错等于没查。）10 月初达坂一场夜雪就临时封闭，按往年经验 10.3 通行概率约六成——<b>心态上"走成是赚到"，封路不是损失，是触发另一条彩蛋线。</b></div>
     <div class="plans">
-      <div class="plan"><div class="k">A</div><div><b>通车</b>：早上从唐布拉回乔尔玛，驶入独库公路北段。沿途停靠<b>天瀑、哈希勒根达坂观景台</b>，看雪山松林峡谷，随走随停拍照。</div></div>
-      <div class="plan"><div class="k">B</div><div><b>封路</b>：改 G218 国道返回奎屯，行程顺延不打乱。</div></div>
+      <div class="plan"><div class="k">A</div><div><b>独库通车</b>：8:00 前从唐布拉出发，回乔尔玛驶入独库北段。沿途停靠<b>天瀑、哈希勒根达坂观景台</b>（海拔约 3400m）。<b>纪律：中午前过达坂，15:00 前必须驶出独山子端</b>（10.3 下午出口最易堵死），当晚宿奎屯。</div></div>
+      <div class="plan scenic"><div class="k">B</div><div><b>独库封、G218 正常（最常见的封法）→ 巩乃斯风景线</b>：不回头，从乔尔玛沿 G218 向东南穿天山——<b>巩乃斯河谷金秋</b>（雪岭云杉+白桦分层，"独库的温柔版"）→ 班禅沟/阿尔先温泉沟路边短停 → 翻天山下阿拉沟，一天看完云杉→草甸→戈壁的植被渐变（任务⑨提前开演）→ 当晚宿<b>库尔勒</b>（孔雀河夜景顺带逛）。次日库尔勒→托克逊→吐鲁番仅约 4h，比原路还短，D10 起与主线完全并轨。<span class="sub">✦ 彩蛋：中午前过巩乃斯且 G217 南段开放，可岔进<b>巴音布鲁克</b>看开都河九曲日落（+1h 车程，海拔 2500m 傍晚很冷，当 bonus 不当目标）。✦ 若 10.2 晚天气预报明显要下雪：当晚就订库尔勒酒店 + 跟老王打招呼退奎屯，别等早上手忙脚乱。</span></div></div>
+      <div class="plan"><div class="k">C</div><div><b>大范围降雪、G218 山区段也管制（小概率）</b>：原路 G218 向西回伊宁方向转 G30 返奎屯，保安全，不赌。行程顺延不打乱。</div></div>
     </div>
     <div class="tl">
-      <div class="trow"><div class="tt">08:00</div><div class="ta">查路况 → 定预案 → 晕车贴提前半小时贴</div></div>
-      <div class="trow hl"><div class="tt">09:00</div><div class="ta"><b>驶入独库北段</b>（预案 A）<span class="sub">天瀑 · 发卡弯 · 任务⑧开始计数</span></div></div>
-      <div class="trow hl"><div class="tt">12:00</div><div class="ta"><b>哈希勒根达坂观景台</b>（下车 5 分钟）<span class="sub">"你现在站的地方，比 3 个东方明珠叠起来还高。"</span></div></div>
-      <div class="trow"><div class="tt">下午</div><div class="ta">抵达独山子短暂休整，开到奎屯入住<span class="sub">今日必须换驾驶员</span></div></div>
+      <div class="trow"><div class="tt">07:30</div><div class="ta">查路况 → 定预案 → 晕车贴提前半小时贴</div></div>
+      <div class="trow hl"><div class="tt">08:00</div><div class="ta"><b>出发</b>（比常规再提早——预案 A 的出山截止线是硬的）<span class="sub">预案 A：驶入独库北段 · 天瀑 · 发卡弯 · 任务⑧开始计数</span></div></div>
+      <div class="trow hl"><div class="tt">12:00 前</div><div class="ta"><b>哈希勒根达坂观景台</b>（下车 5 分钟）<span class="sub">"你现在站的地方，比 3 个东方明珠叠起来还高。"</span></div></div>
+      <div class="trow"><div class="tt">15:00 前</div><div class="ta"><b>硬截止：驶出独山子端</b>，开到奎屯入住<span class="sub">今日必须换驾驶员</span></div></div>
     </div>
-    <div class="task"><b>任务⑧ · 发卡弯竞猜</b>——数发卡弯，猜中者赢今晚的晚餐选择权。</div>
+    <div class="task"><b>任务⑧ · 发卡弯竞猜</b>——数发卡弯，猜中者赢今晚的晚餐选择权。（走预案 B 则改数"过了几条河"，规则不变。）</div>
   </div>
-  <div class="hotel">🏨 宿 <b>奎屯市区 · 亚朵</b><span class="bk">（老王）</span></div>
+  <div class="hotel">🏨 宿 <b>奎屯市区 · 亚朵</b><span class="bk">（老王）</span>｜预案 B 改宿 <b>库尔勒市区</b><span class="bk">（临场订，国庆好酒店也会满，提前一晚动手）</span></div>
 </article>
 
 <!-- DAY 10 -->
@@ -741,6 +786,7 @@ footer .brand{
     <div class="drive"><b>5h</b>435km</div>
   </div>
   <div class="day-body">
+    <p style="font-size:13.5px;color:var(--silver-dim);">（若昨天走了预案 B 宿库尔勒：今早改走库尔勒→托克逊→吐鲁番，约 4h 比原路还短，下文照旧。）</p>
     <div class="tl">
       <div class="trow"><div class="tt">09:00</div><div class="ta">早上出发（国庆返程注意路况）· 双驾驶员轮换</div></div>
       <div class="trow hl"><div class="tt">午后</div><div class="ta"><b>吐鲁番盆地"两季实验"</b><span class="sub">一小时内，窗外从雪山变成戈壁，温度计从 15°C 爬到 27°C · 任务⑨</span></div></div>
@@ -762,12 +808,12 @@ footer .brand{
   </div>
   <div class="day-body">
     <div class="tl">
-      <div class="trow"><div class="tt">上午</div><div class="ta"><b>葡萄沟</b><span class="sub">葡萄长廊乘凉 · 品尝葡萄瓜果 · 逛维吾尔民居</span></div></div>
-      <div class="trow hl"><div class="tt">午前</div><div class="ta"><b>火焰山</b>打卡地标拍照（短暂停留，避开正午暴晒）<span class="sub">金箍棒温度计 · 孙悟空借芭蕉扇的地方 · BGM 切《西游记》</span></div></div>
-      <div class="trow hl"><div class="tt">午后</div><div class="ta"><b>库木塔格沙漠</b>（100km · 1.5h 车程）<span class="sub">滑沙 · 光脚跑沙丘 · 任务⑩装一瓶沙</span></div></div>
-      <div class="trow"><div class="tt">晚上</div><div class="ta">回吐鲁番市区，晚饭吃拌面</div></div>
+      <div class="trow hl"><div class="tt">08:30 出发</div><div class="ta"><b>库木塔格沙漠</b>（100km · 1.5h 车程，开园即到）<span class="sub">上午沙面凉、光脚跑沙丘不烫脚、逆光沙脊线最好看 · 滑沙 · 任务⑩装一瓶沙 · 国庆滑沙项目排队长，越早越省</span></div></div>
+      <div class="trow"><div class="tt">13:00</div><div class="ta"><b>鄯善午饭吃拌面</b>，回程</div></div>
+      <div class="trow"><div class="tt">正午后</div><div class="ta"><b>葡萄沟</b><span class="sub">最晒的时段躲进葡萄长廊乘凉 · 品瓜果 · 逛维吾尔民居</span></div></div>
+      <div class="trow hl"><div class="tt">傍晚</div><div class="ta"><b>火焰山</b>打卡地标拍照（顺路 20 分钟）<span class="sub">金箍棒温度计 · 孙悟空借芭蕉扇的地方 · BGM 切《西游记》</span></div></div>
     </div>
-    <div class="meta-pills"><span class="pill tbd">葡萄沟【待定】：当天看孩子状态与鲜果季情况临场定，跳过则直接火焰山 + 沙漠</span></div>
+    <div class="meta-pills"><span class="pill tbd">葡萄沟【待定】：当天看孩子状态与鲜果季情况临场定，跳过则沙漠玩久一点 + 火焰山提前</span><span class="pill gold">顺序有讲究：沙漠上午（凉）→ 葡萄沟正午（阴凉）→ 火焰山傍晚（温度计读数更戏剧化）</span></div>
     <div class="task"><b>任务⑩ · 装一瓶沙</b>——至此四元素集齐。</div>
     <div class="elements">
       <div class="el"><div class="e-ico">💧</div><h4>湖的水汽</h4><p>赛湖蓝石头 · Day3</p></div>
@@ -790,10 +836,12 @@ footer .brand{
     <div class="drive"><b>CA1294</b>20:20 — 00:10</div>
   </div>
   <div class="day-body">
+    <div class="warn"><b>⚠ 返程潮日，链条前压：</b>10.6 是国庆返程第一波，吐鲁番→乌市的 G30 后沟—乌拉泊段是知名堵点，返程车流 10 点后起量——所以 <b>8:00 前必须发车</b>；<b>16:00 是市区出发去机场的硬截止</b>；还车留足 1.5h（国庆验车排队）。采购压缩到博物馆周边或机场解决。</div>
     <div class="tl">
-      <div class="trow"><div class="tt">08:00</div><div class="ta">一早出发：吐鲁番 → 乌鲁木齐<span class="sub">驾车 2.5h</span></div></div>
-      <div class="trow hl"><div class="tt">下午</div><div class="ta"><b>新疆博物馆</b>（预约场次）<span class="sub">楼兰"睡了三千八百年的姑娘"——讲成"她也在等月亮"就不可怕了</span></div></div>
-      <div class="trow"><div class="tt">16:30</div><div class="ta">临行前采购 → 还车 → 机场</div></div>
+      <div class="trow hl"><div class="tt">07:45</div><div class="ta"><b>发车</b>：吐鲁番 → 乌鲁木齐<span class="sub">驾车 2.5h · 抢在返程潮起量之前 · 10:30 前进乌市</span></div></div>
+      <div class="trow hl"><div class="tt">11:00–14:00</div><div class="ta"><b>新疆博物馆</b>（约上午末/正午场）<span class="sub">楼兰"睡了三千八百年的姑娘"——讲成"她也在等月亮"就不可怕了 · 10.6 周二不撞周一闭馆 ✓</span></div></div>
+      <div class="trow"><div class="tt">14:30</div><div class="ta">博物馆周边快速采购</div></div>
+      <div class="trow hl"><div class="tt">16:00</div><div class="ta"><b>硬截止：出发还车</b>（留 1.5h 验车排队）→ 机场<span class="sub">18:00 前到航站楼</span></div></div>
       <div class="trow hl"><div class="tt">安检前</div><div class="ta"><b>第二封月亮来信</b>出现在孩子背包里（见下）</div></div>
       <div class="trow"><div class="tt">20:20</div><div class="ta"><b>国航 CA1294</b> 起飞<span class="sub">00:10 落地北京首都 T3</span></div></div>
     </div>
@@ -802,6 +850,41 @@ footer .brand{
   </div>
   <div class="hotel">✈️ 返程 <b>任务完成</b></div>
 </article>
+
+<!-- ═══════════ 票务作战 ═══════════ -->
+<section>
+  <div class="sec-head"><span class="sec-num">附 · 票务作战</span><h2>门票总表 与 <em>抢票时间线</em></h2></div>
+  <div class="tix-wrap">
+    <table class="tix">
+      <thead><tr><th>DAY</th><th>项目</th><th>参考费用（成人/旺季）</th><th>购票渠道</th><th>提前量</th></tr></thead>
+      <tbody>
+        <tr><td>D1</td><td><b>大巴扎 · 和田二街</b></td><td><span class="free">免费</span></td><td>—</td><td>—</td></tr>
+        <tr><td>D2</td><td><b>独山子大峡谷</b></td><td><span class="fee">门票约¥30 + 悬空观景台约¥20–40</span></td><td>现场 / OTA</td><td>当天可</td></tr>
+        <tr><td>D3</td><td><b>赛里木湖</b></td><td><span class="fee">门票约¥145 + 区间车约¥75</span><br>（自驾环湖政策年年变，以当年为准）</td><td>官方小程序 / OTA</td><td>提前 1–2 天（9.27 中秋尾巴有量）</td></tr>
+        <tr><td>D4</td><td><b>喀赞其 · 六星街</b></td><td><span class="free">街区免费</span>；马车/民俗院落现付约¥30–100</td><td>现场</td><td>—</td></tr>
+        <tr><td>D6</td><td><b>库尔德宁</b></td><td><span class="fee">门票约¥40–60 + 自驾进沟费</span>（旺季若强制区间车约¥40）</td><td>现场 / OTA</td><td>当天可，进沟政策游客中心现场确认</td></tr>
+        <tr><td>D7/8</td><td><b>那拉提（河谷草原）</b> <span class="must">★ 全程最优先</span></td><td><span class="fee">门票¥95 + 河谷区间车约¥45</span></td><td>官方小程序</td><td><span class="must">🔴 国庆日限流，提前 1–3 天锁 10.2 场</span></td></tr>
+        <tr><td>D8</td><td><b>乔尔玛陵园 · S315 · 唐布拉观景台</b></td><td><span class="free">免费</span>（个别停车点收停车费）</td><td>—</td><td>—</td></tr>
+        <tr><td>D9</td><td><b>独库公路</b></td><td><span class="free">免费</span></td><td>—</td><td>前晚+当早查「独库公路」小程序 + 新疆交警</td></tr>
+        <tr><td>D10</td><td><b>坎儿井民俗园</b></td><td><span class="fee">约¥40</span></td><td>现场 / OTA</td><td>当天可</td></tr>
+        <tr><td>D10</td><td><b>交河故城</b></td><td><span class="fee">约¥70</span></td><td>现场 / OTA</td><td>国庆建议提前 1 天</td></tr>
+        <tr><td>D11</td><td><b>库木塔格沙漠</b></td><td><span class="fee">门票约¥30 + 景交/滑沙项目约¥50–150/人</span></td><td>现场 / OTA</td><td>国庆项目排队长，开园即到</td></tr>
+        <tr><td>D11</td><td><b>葡萄沟</b>（待定）</td><td><span class="fee">约¥60</span></td><td>现场 / OTA</td><td>去了再买</td></tr>
+        <tr><td>D11</td><td><b>火焰山</b>（地标打卡区）</td><td><span class="fee">约¥40–48</span></td><td>现场</td><td>当天可</td></tr>
+        <tr><td>D12</td><td><b>新疆博物馆</b></td><td><span class="free">免费</span></td><td>官方公众号预约</td><td><span class="must">🔴 提前 7 天放票 → 9.29 抢 10.6 场</span>（周一闭馆，10.6 周二 ✓）</td></tr>
+      </tbody>
+    </table>
+    <div class="tix-note">价格为旺季参考价，以官方购票渠道当日为准；多数景区 6 岁以下或 1.2m 以下免大门票、区间车半价——<b style="color:var(--moon)">带好户口本</b>。</div>
+  </div>
+
+  <div class="grab">
+    <div class="grab-item hot"><div class="gd">放票即抢</div><div class="gt"><b>那拉提 10.2 门票 + 河谷区间车</b>——全程唯一可能真买不到的票（国庆日限流）。</div></div>
+    <div class="grab-item"><div class="gd">9.25 前</div><div class="gt"><b>赛里木湖 9.27 门票</b>线上买好，出发前一周顺手查一次当年自驾环湖政策。</div></div>
+    <div class="grab-item hot"><div class="gd">9.29</div><div class="gt"><b>抢新疆博物馆 10.6 预约</b>（提前 7 天放票）——当天设日历提醒。</div></div>
+    <div class="grab-item"><div class="gd">10.2 晚</div><div class="gt"><b>查独库天气预报</b>：若明显要下雪，当晚订好库尔勒酒店 + 跟老王打招呼奎屯退改，别等早上手忙脚乱。</div></div>
+    <div class="grab-item"><div class="gd">10.3 早 7:30</div><div class="gt"><b>查独库路况定预案</b>：「独库公路」小程序 + 【新疆交警】公众号交叉确认（<b>不是阿勒泰交警</b>）。</div></div>
+  </div>
+</section>
 
 <!-- ═══════════ 硬件手册 ═══════════ -->
 <section>
@@ -822,9 +905,9 @@ footer .brand{
       <ul>
         <li><b>① 机票已定</b>：9.25 海航 HU7245（首都 14:15 → 乌市 18:30）｜10.6 国航 CA1294（乌市 20:20 → 首都 T3 00:10）</li>
         <li><b>② 全程住宿已定</b>：乌市百丽 → 奎屯亚朵 → 赛湖城际 → 伊宁亚朵×2 → 库尔德宁那一叶 → 那拉提拈花湾哈茵赛 → 唐布拉舒泊瑞斯 → 奎屯亚朵 → 吐鲁番文化西路亚朵×2</li>
-        <li><b>③ 9.29 抢</b>新疆博物馆预约（提前 7 天放票，抢 10.6 场次）</li>
-        <li><b>④ Day9 前晚 + 当早</b>：查【阿勒泰交警】公众号独库路况，封路走 G218</li>
-        <li><b>⑤ 出发前一晚</b>：写好两封月亮来信 · 装好手册和徽章 · 下载离线地图和三张歌单</li>
+        <li><b>③ 抢票三件套</b>：那拉提 10.2 场（放票即抢）· 赛湖 9.27 票（9.25 前）· 博物馆 10.6 预约（9.29 抢）——详见上方票务作战</li>
+        <li><b>④ Day9 前晚 + 当早</b>：查「独库公路」小程序 + 【新疆交警】公众号（不是阿勒泰交警），封路走 G218 巩乃斯线（预案 B）</li>
+        <li><b>⑤ 出发前一晚</b>：写好两封月亮来信 · 装好手册和徽章 · 下载离线地图（含 G218/库尔勒备用路段）和三张歌单</li>
       </ul>
     </div>
   </div>
@@ -881,15 +964,23 @@ footer .brand{
     [44.598, 81.333, '赛里木湖', 'D3', true, '<b>D3 · 9.27 宿城际</b><br>月亮湾 · 点将台 · 湖边月光路<br>全程高光之夜 🌕'],
     [43.909, 81.277, '伊宁', 'D4', true, '<b>D4-5 · 9.28-29 宿亚朵×2</b><br>喀赞其蓝色小镇（喂鸽子·马车）<br>六星街 · 伊犁河大桥日落<br>第一封月亮来信 ✉'],
     [43.205, 82.530, '库尔德宁', 'D6', true, '<b>D6 · 9.30 宿景区内·那一叶</b><br>私家车进景区 中沟进东沟出<br>十里画廊 · 蜂香驿站 · 喀峰大本营<br>今晚睡在云杉林里 🌲'],
-    [43.318, 84.005, '那拉提', 'D7', true, '<b>D7 · 10.1 宿拈花湾哈茵赛</b><br>下午河谷草原：白桦林 + 雪山<br>学"热合买提"'],
+    [43.318, 84.005, '那拉提', 'D7', true, '<b>D7-8 · 10.1 宿拈花湾哈茵赛</b><br>10.1 不进园（避国庆最高峰）<br><b>10.2 开园第一批</b>进河谷草原<br>白桦林 + 雪山晨光 · 学"热合买提"'],
     [43.580, 84.395, '乔尔玛', 'D8', false, '<b>D8 途经</b><br>烈士陵园停 20 分钟<br>"用命修出来的路"'],
     [43.830, 83.550, '唐布拉', 'D8', true, '<b>D8 · 10.2 宿舒泊瑞斯</b><br>S315 百里画廊 · 喀什河 S 弯<br>全程唯一观星窗口 🌌'],
     [43.950, 84.420, '哈希勒根达坂', 'D9', false, '<b>D9 途经（预案 A）</b><br>独库北段 · 天瀑 · 达坂观景台<br>发卡弯竞猜'],
     [42.951, 89.190, '吐鲁番', 'D10', true, '<b>D10-11 · 10.4-5 宿文化西路亚朵×2</b><br>两季实验（15°C→27°C）<br>坎儿井民俗园'],
     [42.956, 89.066, '交河故城', 'D10', false, '<b>D10 日落前</b><br>夕阳下的千年古城<br>"两千年前，月亮也照过这座城"'],
     [42.996, 89.303, '葡萄沟', 'D11', false, '<b>D11 上午【待定】</b><br>葡萄长廊乘凉 · 品瓜果 · 维吾尔民居'],
-    [42.940, 89.580, '火焰山', 'D11', false, '<b>D11 午前</b><br>金箍棒温度计 · BGM《西游记》<br>避开正午暴晒'],
-    [42.870, 90.230, '库木塔格沙漠', 'D11', false, '<b>D11 午后</b><br>滑沙 · 光脚跑沙丘 · 装一瓶沙 ⏳<br>四元素集齐']
+    [42.940, 89.580, '火焰山', 'D11', false, '<b>D11 傍晚</b><br>金箍棒温度计 · BGM《西游记》<br>顺路 20 分钟'],
+    [42.870, 90.230, '库木塔格沙漠', 'D11', false, '<b>D11 上午（开园即到）</b><br>滑沙 · 光脚跑沙丘 · 装一瓶沙 ⏳<br>四元素集齐']
+  ];
+
+  // 预案 B（独库封路时）：G218 巩乃斯风景线
+  var planB = [
+    [43.180, 84.930, '巩乃斯', 'B', '<b>预案 B · 巩乃斯河谷</b><br>雪岭云杉 + 白桦金秋分层<br>"独库的温柔版"'],
+    [42.760, 86.340, '和静/巴伦台', 'B', '<b>预案 B · 穿天山下阿拉沟</b><br>云杉→草甸→戈壁 一天看完植被渐变'],
+    [41.760, 86.150, '库尔勒', 'B', '<b>预案 B · 宿库尔勒</b><br>孔雀河夜景 · 次日 4h 直达吐鲁番<br>与主线 D10 完全并轨'],
+    [43.030, 84.150, '巴音布鲁克', 'B★', '<b>预案 B 彩蛋（条件触发）</b><br>开都河九曲十八弯日落<br>中午前过巩乃斯 + G217 南段开放才去']
   ];
 
   // 行车路线（按实际走向，含 D9 独库回奎屯、D12 回乌市的回环）
@@ -937,7 +1028,31 @@ footer .brand{
       .bindPopup(s[5]);
   });
 
-  map.fitBounds(L.latLngBounds(route).pad(0.12));
+  // 预案 B 虚线（乔尔玛→巩乃斯→和静→库尔勒→吐鲁番）
+  var planBRoute = [
+    [43.580, 84.395],  // 乔尔玛
+    planB[0], planB[1], planB[2],
+    [42.951, 89.190]   // 吐鲁番
+  ].map(function(s){ return Array.isArray(s) && s.length === 2 ? s : [s[0], s[1]]; });
+  L.polyline(planBRoute, {
+    color: '#7fb59a', weight: 2, opacity: .7, dashArray: '3 9',
+    lineJoin: 'round'
+  }).addTo(map);
+
+  planB.forEach(function(s){
+    var icon = L.divIcon({
+      className: '',
+      html: '<div class="day-marker planb">' + s[3] + '</div>',
+      iconSize: [30, 30],
+      iconAnchor: [15, 15],
+      popupAnchor: [0, -16]
+    });
+    L.marker([s[0], s[1]], { icon: icon, title: s[2] })
+      .addTo(map)
+      .bindPopup(s[4]);
+  });
+
+  map.fitBounds(L.latLngBounds(route.concat(planBRoute)).pad(0.10));
 })();
 </script>
 
